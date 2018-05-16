@@ -6,7 +6,7 @@
  * @author oumayma
  */
 class Connexion {
-    private $bd;
+    private static $bd;
         public function __construct(){
        
          }

@@ -1,5 +1,6 @@
 <?php
-require_once "../../models/Categories.php";
+include_once'../../models/Categories.php';
+
 class CategrieController {
       public function __construct()
     {
@@ -7,10 +8,12 @@ class CategrieController {
     }
 
     public function ajouterCategorie($libelle){
-        $bd=Connexion();
-        $bd->getConnexion();
-        $cm=new Categories($libelle,$bd);
-        $cm->ajouterCategorie();
+        $cm=new Categories($libelle);
+       if( $cm->ajouterCategorie())
+           return TRUE;
+       else
+           return FALSE;
+       
        
 
     }

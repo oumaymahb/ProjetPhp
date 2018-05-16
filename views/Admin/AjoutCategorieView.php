@@ -1,10 +1,16 @@
 <?php
-require_once "../../controllers/CategorieController.php";
-if (isset($_POST["catName"]))
+include_once'C:\wamp64\www\PhpProject\controllers\CategrieController.php';
+if (isset($_POST["catName"]) && !empty($_POST["catName"]))
 {
     $libelle =$_POST["catName"];
     $cat=new CategrieController();
-    $cat->ajouterCategorie($libelle);
+   if  ($cat->ajouterCategorie($libelle))
+   {
+       echo "<script>alert('Added with success');window.location.href='AjoutCategorieView.php';</script>";
+   }
+   else
+        echo  '<script>alert("Error! not added !!");</script>';
+       
 
 }
 ?>
@@ -344,7 +350,7 @@ if (isset($_POST["catName"]))
                   <h3>Add a category</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="AjoutCategorieView.php" class="form-horizontal group-border-dashed">
+                    <form action="AjoutCategorieView.php" class="form-horizontal group-border-dashed" method="POST">
                      
             
 

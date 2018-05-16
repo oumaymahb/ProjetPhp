@@ -1,16 +1,13 @@
 <?php
-/**
- * Description of Categories
- *
- * @author oumayma
- */
+
+include_once'../../models/Connexion.php';
 class Categories {
     private $libelle;
     private $bd ;
- function __construct( $libelle,$conx)
+ function __construct( $libelle)
     {
         $this->libelle = $libelle;
-        $this->bd=$conx;
+       
     }
 
 
@@ -19,19 +16,19 @@ class Categories {
         return $this->libelle;
     }
 
-    /**
-     * @param mixed $libelle
-     */
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
     }
      public function ajouterCategorie(){
-        $sql = "INSERT INTO `categorie`(`lib_cat`) VALUES (:lib)";
-        $q = $this->bd->prepare($sql);
-        $q->bindValue(':lib', $this->libelle);
-        $q->execute();
-        echo "well done";
+        
+        $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+        $sql="insert into categorie (lib_cat) values ('$this->libelle')";
+       if( $this->bd->exec($sql))
+        return true;
+       else
+           return false;
     }
     public function getCategoryByLib($lib){
        
