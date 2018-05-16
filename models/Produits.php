@@ -1,9 +1,5 @@
 <?php
-/**
- * Description of Produits
- *
- * @author oumayma&ameni
- */
+include_once'../../models/Connexion.php';
 class Produits {
     private $idP;
     private $libelleP;
@@ -13,15 +9,23 @@ class Produits {
     private $descriptionP;
     private $idCat;
     private $bd;
-    function __construct($id,$lib,$prix,$stock,$dispo,$desc,$idcat,$conx){ 
-          $this->idP=$id;
+    function __construct($lib,$prix,$stock,$desc,$cat){ 
+         $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+       $sql = "SELECT id_cat From categorie where lib_cat='$cat'";
+       $result = $this->bd->query($sql);
+       $row = $result->fetch_assoc();
+       $id= $row['id_cat'];
+      echo "<script>alert('from model')</script>";
+       echo "<script>alert('$id')</script>";
+     
           $this->libelleP=$lib;
           $this->prixP=$prix;
           $this->stockP=$stock;
-          $this->dispo=$dispo;
+          $this->dispo=1;
           $this->descriptionP=$desc;
-          $this->idCat=$idcat;
-          $this->bd=$conx;
+          $this->idCat=$id;
+      
           
     }
     function getIdP() {
@@ -80,17 +84,14 @@ class Produits {
         $this->idCat = $idCat;
     }
     public function ajouterProduit(){
-       $sql = "INSERT INTO `produit` (`id_produit`,`libelle_produit`,`prix_produit`,`stock_produit`,`dispo`,`description_produit`,`id_cat`) VALUES (:id,:libelle,:prix,:stock,:dispo,:description:cat)";
-        $q = $this->bd->prepare($sql);
-        $q->bindValue(':id',$this->idP);
-        $q->bindValue(':libelle', $this->libelleP);
-        $q->bindValue(':prix', $this->prixP);
-        $q->bindValue(':stock', $this->stockP);
-        $q->bindValue(':dispo', $this->dispo);
-        $q->bindValue(':description', $this->descriptionP);
-         $q->bindValue(':cat', $this->idCat);
-         $q->execute();
-        echo "well done";
+
+        $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+       $sql = "INSERT INTO `produit` (`libelle_produit`,`prix_produit`,`stock_produit`,`dispo`,`description_produit`,`id_cat) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat')";
+       if( $this->bd->exec($sql))
+        return true;
+       else
+           return false;
     }
     public function getAllProduits(){
         $sql="SELECT * FROM `produit`";

@@ -1,16 +1,20 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ProduitController
- *
- * @author oumayma
- */
+include_once'../../models/Produits.php';
 class ProduitController {
-    //put your code here
+     public function __construct()
+    {
+
+    }
+
+    public function ajouterProduit($lib,$prix,$stock,$des,$cat){
+        $p=new Produits($lib,$prix,$stock,$des,$cat);
+       
+       if( $p->ajouterProduit())
+           return TRUE;
+       else
+           return FALSE;
+       
+       
+
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 include_once'C:\wamp64\www\PhpProject\controllers\CategrieController.php';
-if (isset($_POST["catName"]) && !empty($_POST["catName"]))
+if (isset($_POST["catName"]))
 {
     $libelle =$_POST["catName"];
     $cat=new CategrieController();

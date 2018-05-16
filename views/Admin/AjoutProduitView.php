@@ -1,3 +1,24 @@
+<?php
+include_once'C:\wamp64\www\PhpProject\controllers\ProduitController.php';
+if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
+{
+    $cat =$_POST["category"];
+    $name =$_POST["name"];
+    $price =$_POST["postfix"];
+   $stock =$_POST["stock"];
+   $des =$_POST["description"];
+  
+    $prod=new ProduitController();
+   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat))
+   {
+       echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
+   }
+   else
+        echo  "<script>alert('Error! not added !!');window.location.href='AjoutProduitView.php';</script>";
+       
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -179,7 +200,7 @@
                 </li>
                 <li class="active"><a href="dashboard2.html">Categories</a>
                 </li>
-                 <li ><a href="ajoutCategorieView.php">Add a product</a>
+                 <li ><a href="ajoutCategorieView.php">Add a Category</a>
                 </li>
                 <li class="active"><a href="dashboard3.html">Orders</a>
                 </li>
@@ -237,22 +258,22 @@
                   <h3>Add a product</h3>
                 </div>
                 <div class="panel-body">
-                  <form action="#" class="form-horizontal group-border-dashed">
-                                           <div class="form-group">
+                    <form action="AjoutProduitView.php" class="form-horizontal group-border-dashed" method="POST">
+                       <div class="form-group">
                       <label class="col-sm-3 control-label">Categories</label>
                       <div class="col-sm-6">
-                        <select class="form-control">
+                        <select class="form-control" name="category">
                           
                             <option value="AK">-- Select a category --</option>
                           </optgroup>
-                          <optgroup label="Pacific Time Zone">
+                          <option value="aa" label="Pacific Time Zone">
                           
-                          </optgroup>
+                          </option>
                           <optgroup label="Mountain Time Zone">
                         
                           </optgroup>
                           <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
+                            <option value="Alabama">Alabama</option>
                           </optgroup>
                     
                         
@@ -292,16 +313,17 @@
                            <div class="form-group">
                       <label class="col-sm-3 control-label">Images</label>
                       <div class="col-sm-6">
-                                  <form enctype="multipart/form-data" action="insert_image.php" method="post" name="changer">
-                                    <input name="image" accept="image/jpeg" type="file"  multiple>
-                                    </form> 
+                  
+                                      <input name="image" accept="image/jpeg" type="file"   onclick="" multiple>
+                                  
                       </div>
                     </div>
                     <div class="form-group">
-                       <center><button type="submit" class="btn btn-space btn-primary" name="submit">Submit</button> 
+                           <center><button type="submit" class="btn btn-space btn-primary" name="addprod">Add</button> 
                         <button class="btn btn-space btn-default" name="cancel">Cancel</button>
                    </center>
                     </div>
+                       
                   </form>
                 </div>
               </div>
