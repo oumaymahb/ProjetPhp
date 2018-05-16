@@ -1,6 +1,6 @@
 <?php
 
-/*
+/* JUUUST TESTIIIING
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,9 +20,9 @@ class User {
   private $adresse ;
   private $num_tel ;
   private $date_nais ;
-  private $role
-  private $bd
-  function __construct($nom,$prenom,$email,$mdp,$adr,$num,$dat,$role^$bd){
+  private $role;
+  private $bd;
+  function __construct($nom,$prenom,$email,$mdp,$adr,$num,$dat,$role $bd){
   	$this->nom_user=$nom;
   	$this->prenom_user=$prenom;
   	$this->email=$email;
