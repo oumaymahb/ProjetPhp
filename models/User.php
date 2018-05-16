@@ -22,7 +22,7 @@ class User {
   private $date_nais ;
   private $role;
   private $bd;
-  function __construct($nom,$prenom,$email,$mdp,$adr,$num,$dat,$role $bd){
+  function __construct($nom,$prenom,$email,$mdp,$adr,$num,$dat,$role,$bd){
   	$this->nom_user=$nom;
   	$this->prenom_user=$prenom;
   	$this->email=$email;
@@ -31,7 +31,7 @@ class User {
   	$this->num_tel=$num;
   	$this->$date_nais=$dat;
   	$this->role=$role;
-  	$this->bd=$bd
+  	$this->bd=$bd;
   }
   public function getId(){
   	return $this->id_user;
@@ -66,7 +66,7 @@ class User {
   public function setNom($nom){
   	$this->nom_user=$nom;
   }
-  public function getPrenom($pre){
+  public function setPrenom($pre){
   $this->prenom_user=$pre;
   }
   public function setEmail($email){
@@ -108,8 +108,8 @@ class User {
         $res=$stmt->execute();
        if(res)
        {
-       	$donnees = $res->fetch()
-       	if( $donnees['mdp']==$mdp)
+       	$donnees = $res->fetch();
+       	if($donnees['mdp']==$mdp)
        		return 1;
        	else
        		return 2;

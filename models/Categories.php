@@ -7,21 +7,13 @@
 class Categories {
     private $libelle;
     private $bd ;
-    /**
-     * Categorie constructor.
-     * @param $id
-     * @param $libelle
-     */
-  function __construct( $libelle,$conx)
+ function __construct( $libelle,$conx)
     {
         $this->libelle = $libelle;
         $this->bd=$conx;
     }
 
 
-    /**
-     * @return mixed
-     */
     public function getLibelle()
     {
         return $this->libelle;
