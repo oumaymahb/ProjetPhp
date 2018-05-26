@@ -33,9 +33,13 @@ class Categories {
     public function getCategoryByLib(){
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-      $sql="SELECT  id_cat  FROM categorie WHERE lib_cat='$this->libelle'";
+
+  $sql="SELECT  id_cat  FROM categorie WHERE lib_cat='$this->libelle'";
+
+ $result = mysql_query($sql);
+while ($row = mysql_fetch_assoc($result)) {
+echo $row['id_cat'];}
   
-        $res=$this->bd->exec($sql);
-        return $res;
+        return $result;
     }
 }
