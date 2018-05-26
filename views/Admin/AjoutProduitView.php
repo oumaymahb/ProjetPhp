@@ -1,5 +1,5 @@
 <?php
-include_once'C:\wamp64\www\PhpProject\controllers\ProduitController.php';
+include_once'../../controllers/ProduitController.php';
 if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
 {
     $cat =$_POST["category"];

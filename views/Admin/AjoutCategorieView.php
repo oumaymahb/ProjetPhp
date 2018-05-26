@@ -1,5 +1,5 @@
 <?php
-include_once'C:\wamp64\www\PhpProject\controllers\CategrieController.php';
+include_once'../../controllers/CategrieController.php';
 if (isset($_POST["catName"]))
 {
     $libelle =$_POST["catName"];

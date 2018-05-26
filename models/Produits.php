@@ -1,5 +1,6 @@
 <?php
 include_once'../../models/Connexion.php';
+include_once'Categories.php';
 class Produits {
     private $idP;
     private $libelleP;
@@ -12,9 +13,9 @@ class Produits {
     function __construct($lib,$prix,$stock,$desc,$cat){ 
          $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-       $sql = "SELECT id_cat From categorie where lib_cat='$cat'";
-       $result = $this->bd->query($sql);
-       $row = $result->fetch_assoc();
+        $cat=new Categories($lib);
+        $res=$cat->getCategoryByLib();
+       $row = $res->fetch_assoc();
        $id= $row['id_cat'];
       echo "<script>alert('from model')</script>";
        echo "<script>alert('$id')</script>";

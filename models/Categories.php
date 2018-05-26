@@ -30,11 +30,12 @@ class Categories {
        else
            return false;
     }
-    public function getCategoryByLib($lib){
-       
-        $stmt = $this->bd->prepare("SELECT  id_cat  FROM categorie WHERE lib_cat= :lib ");
-        $stmt->bindValue('lib' ,$lib);
-        $res=$stmt->execute();
+    public function getCategoryByLib(){
+        $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+      $sql="SELECT  id_cat  FROM categorie WHERE lib_cat='$this->libelle'";
+  
+        $res=$this->bd->exec($sql);
         return $res;
     }
 }
