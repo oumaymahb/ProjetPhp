@@ -12,11 +12,11 @@ class Images {
     {
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-        for($i=0;$i<=count($img)-1;$i++)
+        for($i=0;$i<=count($tmpname)-1;$i++)
         {
             $src=addslashes($filename[$i]);
             $tmp=addslashes(file_get_contents($tmpname[$i]));
-             $sql = "INSERT INTO imagesp (id_produit,src,image) VALUES (1,'$src','$tmp')";
+             $sql = "INSERT INTO imagesp (id_produit,src,image) VALUES (1,'aa','aa')";
        if ($this->bd->query($sql)) 
 
         return true;

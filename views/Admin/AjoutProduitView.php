@@ -1,14 +1,7 @@
 <?php
 include_once'../../controllers/ProduitController.php';
 include_once'../../controllers/ImageController.php';
-if(isset($_POST["addprod"]))
-{
-    $filename=$_FILES['img']['name'];
-    $tmpname=$_FILES['img']['tmp_name'];
-    $filetype=$_FILES['img']['type'];
-    $image=new ImageController();
-   
-}
+
 if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
 {
     $cat =$_POST["category"];
@@ -16,13 +9,32 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     $price =$_POST["postfix"];
    $stock =$_POST["stock"];
    $des =$_POST["description"];
+     if(isset($_POST['sumit']))
+       {
+         if(getimagesize($_FILES['im']['tmp_name'])==FALSE)
+         {
+             echo "please select an image";
+         }
+         else
+         {
+        $name=$_FILES['im']['name'];
+  
+         $im=$_FILES['im']['tmp_name'];
+      $im= file_get_contents($im);
+      $im=base64_encode($im);
+      saveimage($name,$image);
+       
+         }
   
     $prod=new ProduitController();
-   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat,$tmpname))
-   {
-        $image->ajouterImage($filename,$tmpname);
-       echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
-   }
+   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat))
+   
+     
+           echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
+       
+
+      
+  
    else
         echo  "<script>alert('Error! not added !!');window.location.href='AjoutProduitView.php';</script>";
        
@@ -332,12 +344,12 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <label class="col-sm-3 control-label">Images</label>
                       <div class="col-sm-6">
                   
-                                      <input name="img[]" accept="image/jpeg" type="file"   onclick="" multiple>
+                     <input name="im" accept="image/jpeg" type="file"   multiple>
                                   
                       </div>
                     </div>
                     <div class="form-group">
-                           <center><button type="submit" class="btn btn-space btn-primary" name="addprod">Add</button> 
+                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="add">
                         <button class="btn btn-space btn-default" name="cancel">Cancel</button>
                    </center>
                     </div>
