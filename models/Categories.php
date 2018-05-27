@@ -10,7 +10,6 @@ class Categories {
        
     }
 
-
     public function getLibelle()
     {
         return $this->libelle;
@@ -25,21 +24,20 @@ class Categories {
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
         $sql="insert into categorie (lib_cat) values ('$this->libelle')";
-       if( $this->bd->exec($sql))
+       if( $this->bd->query($sql))
         return true;
        else
            return false;
     }
     public function getCategoryByLib(){
-        $this->bd=new Connexion();
+      $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
 
   $sql="SELECT  id_cat  FROM categorie WHERE lib_cat='$this->libelle'";
 
- $result = mysql_query($sql);
-while ($row = mysql_fetch_assoc($result)) {
-echo $row['id_cat'];}
+ $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+$row = mysqli_fetch_assoc($result);
   
-        return $result;
+        return $row;
     }
 }

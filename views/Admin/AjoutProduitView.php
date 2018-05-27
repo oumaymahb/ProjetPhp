@@ -34,9 +34,17 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
     <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
-  <body>
+<script>
+    function(champ)
+    {
+        if (isNaN(champ))
+            champ.style.backgroundColor="red";
+    }
+</script> 
+<body>
     <div class="am-wrapper">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
         <div class="container-fluid">
@@ -299,7 +307,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                     <div class="form-group">
                       <label class="col-sm-3 control-label">Stock</label>
                       <div class="col-sm-6">
-                        <input type="text" required="yes" placeholder="stock" class="form-control" name="stock">
+                        <input type="text" required="yes" placeholder="stock" class="form-control" name="stock" onblur="verifStock(this)">
                       </div>
                     </div>
                  

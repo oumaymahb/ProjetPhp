@@ -13,12 +13,12 @@ class Produits {
     function __construct($lib,$prix,$stock,$desc,$cat){ 
          $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-        $cat=new Categories($lib);
-        $res=$cat->getCategoryByLib();
-       $row = $res->fetch_assoc();
-       $id= $row['id_cat'];
-      echo "<script>alert('from model')</script>";
-       echo "<script>alert('$id')</script>";
+        $c=new Categories($cat);
+      
+        $res=$c->getCategoryByLib();
+       
+       $id= $res['id_cat'];
+ 
      
           $this->libelleP=$lib;
           $this->prixP=$prix;
@@ -88,8 +88,9 @@ class Produits {
 
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-       $sql = "INSERT INTO `produit` (`libelle_produit`,`prix_produit`,`stock_produit`,`dispo`,`description_produit`,`id_cat) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat')";
-       if( $this->bd->exec($sql))
+       $sql = "INSERT INTO produit (libelle_produit,prix_produit,stock_produit,dispo,description_produit,id_cat) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat')";
+       if ($this->bd->query($sql)) 
+
         return true;
        else
            return false;

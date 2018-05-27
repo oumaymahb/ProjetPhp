@@ -11,14 +11,9 @@ class Connexion {
        
          }
        public function getConnexion(){
-        try
-        {
-            $bd = new PDO('mysql:host=localhost;dbname=produits;charset=utf8', 'root', '');
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-        }
+       
+            $bd=mysqli_connect("localhost","root","","produits") or die("Not connected.");
+      
         return $bd;
     }
 }
