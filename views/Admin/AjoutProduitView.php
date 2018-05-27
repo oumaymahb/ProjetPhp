@@ -1,5 +1,13 @@
 <?php
 include_once'../../controllers/ProduitController.php';
+if(isset($_POST["addprod"]))
+{
+    $filename=$_FILES['img']['name'];
+    $tmpname=$_FILES['img']['tmp_name'];
+    $filetype=$_FILES['img']['type'];
+    $image=new ImageController();
+    $image->ajouterImage($filename,$tmpname);
+}
 if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
 {
     $cat =$_POST["category"];
@@ -9,7 +17,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
    $des =$_POST["description"];
   
     $prod=new ProduitController();
-   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat))
+   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat,$tmpname))
    {
        echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
    }
@@ -322,7 +330,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <label class="col-sm-3 control-label">Images</label>
                       <div class="col-sm-6">
                   
-                                      <input name="image" accept="image/jpeg" type="file"   onclick="" multiple>
+                                      <input name="img[]" accept="image/jpeg" type="file"   onclick="" multiple>
                                   
                       </div>
                     </div>
