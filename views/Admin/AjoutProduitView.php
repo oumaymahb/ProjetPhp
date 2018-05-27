@@ -1,12 +1,13 @@
 <?php
 include_once'../../controllers/ProduitController.php';
+include_once'../../controllers/ImageController.php';
 if(isset($_POST["addprod"]))
 {
     $filename=$_FILES['img']['name'];
     $tmpname=$_FILES['img']['tmp_name'];
     $filetype=$_FILES['img']['type'];
     $image=new ImageController();
-    $image->ajouterImage($filename,$tmpname);
+   
 }
 if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
 {
@@ -19,6 +20,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     $prod=new ProduitController();
    if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat,$tmpname))
    {
+        $image->ajouterImage($filename,$tmpname);
        echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
    }
    else

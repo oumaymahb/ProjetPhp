@@ -9,7 +9,7 @@ class ImageController {
     public function ajouterImage($filename,$tmpname){
         $i=new Images();
        
-       if( $i->ajouterProduit())
+       if( $i->ajouterProduit($filename,$tmpname))
            return TRUE;
        else
            return FALSE;
