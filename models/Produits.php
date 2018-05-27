@@ -10,7 +10,8 @@ class Produits {
     private $descriptionP;
     private $idCat;
     private $bd;
-    function __construct($lib,$prix,$stock,$desc,$cat){ 
+    private $image;
+    function __construct($lib,$prix,$stock,$desc,$cat,$image){ 
          $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
         $c=new Categories($cat);
@@ -26,6 +27,7 @@ class Produits {
           $this->dispo=1;
           $this->descriptionP=$desc;
           $this->idCat=$id;
+          $this->image=$image;
       
           
     }
@@ -88,7 +90,7 @@ class Produits {
 
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-       $sql = "INSERT INTO produit (libelle_produit,prix_produit,stock_produit,dispo,description_produit,id_cat) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat')";
+       $sql = "INSERT INTO produit (libelle_produit,prix_produit,stock_produit,dispo,description_produit,id_cat,image) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat','$this->image')";
        if ($this->bd->query($sql)) 
 
         return true;

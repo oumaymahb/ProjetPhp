@@ -6,8 +6,8 @@ class ProduitController {
 
     }
 
-    public function ajouterProduit($lib,$prix,$stock,$des,$cat){
-        $p=new Produits($lib,$prix,$stock,$des,$cat);
+    public function ajouterProduit($lib,$prix,$stock,$des,$cat,$path){
+        $p=new Produits($lib,$prix,$stock,$des,$cat,$path);
        
        if( $p->ajouterProduit())
            return TRUE;

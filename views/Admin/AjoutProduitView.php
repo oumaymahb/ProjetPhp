@@ -1,44 +1,33 @@
 <?php
 include_once'../../controllers/ProduitController.php';
-include_once'../../controllers/ImageController.php';
+ 
+   
 
-if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) )
-{
+if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) && isset($_FILES['fileToUpload']) )
+{ echo '<script>alert("aaaaaaaaa");</script>';
     $cat =$_POST["category"];
     $name =$_POST["name"];
     $price =$_POST["postfix"];
    $stock =$_POST["stock"];
    $des =$_POST["description"];
-     if(isset($_POST['sumit']))
-       {
-         if(getimagesize($_FILES['im']['tmp_name'])==FALSE)
-         {
-             echo "please select an image";
-         }
-         else
-         {
-        $name=$_FILES['im']['name'];
-  
-         $im=$_FILES['im']['tmp_name'];
-      $im= file_get_contents($im);
-      $im=base64_encode($im);
-      saveimage($name,$image);
-       
-         }
-  
-    $prod=new ProduitController();
-   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat))
    
-     
-           echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>";
-       
-
-      
-  
+   
+  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    $target_dir = "assets/img/";
+    $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  echo '<script>alert("'.$target_file.'");</script>';
+   
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    $prod=new ProduitController();
+   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat,$target_file))
+   
+        echo "<script>alert('Added with success');window.location.href='AjoutProduitView.php';</script>"; 
    else
         echo  "<script>alert('Error! not added !!');window.location.href='AjoutProduitView.php';</script>";
        
-
+        
+}
 }
 ?>
 <!DOCTYPE html>
@@ -288,7 +277,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                   <h3>Add a product</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="AjoutProduitView.php" class="form-horizontal group-border-dashed" method="POST">
+                    <form action="AjoutProduitView.php" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
                        <div class="form-group">
                       <label class="col-sm-3 control-label">Categories</label>
                       <div class="col-sm-6">
@@ -344,7 +333,8 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <label class="col-sm-3 control-label">Images</label>
                       <div class="col-sm-6">
                   
-                     <input name="im" accept="image/jpeg" type="file"   multiple>
+                    
+                     <input type="file" accept="image/jpeg/jpg/png" id="fileToUpload" name="fileToUpload" >
                                   
                       </div>
                     </div>
