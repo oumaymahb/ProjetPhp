@@ -6,21 +6,27 @@ include_once'../../controllers/ProduitController.php';
         $p=new ProduitController();
         $i=$_GET['id'];
           $pr=$p->getProduitById($i);
-if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) && isset($_FILES['fileImagee']) )
+           
+if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"])&&isset($_FILES["fileImagee"]) )
 {
     $cat =$_POST["category"];
     $name =$_POST["name"];
     $price =$_POST["postfix"];
    $stock =$_POST["stock"];
    $des =$_POST["description"];
- 
-     
+
     $target_dir = "assets/img/";
     $target_file = $target_dir.basename($_FILES["fileImagee"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         if (move_uploaded_file($_FILES["fileImagee"]["tmp_name"], $target_file)) {
-            
-   if  ($p->updateProduit($i,$name,$price,$stock,$des,$cat,$target_file))
+       
+             if (empty($_FILES["fileImagee"]))
+             {echo"<script>alert('empty');</script>"; 
+       $t=$pr['image'];
+             }
+             else
+             {$t=$target_file;}
+   if  ($p->updateProduit($i,$name,$price,$stock,$des,$cat,$t))
    
         echo "<script>alert('Product updated with success');window.location.href='ModifierProduitView.php';</script>"; 
    else

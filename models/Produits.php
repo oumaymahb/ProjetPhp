@@ -152,10 +152,15 @@ class Produits {
 
             
     }
-    public function SupprimerProduit(){
-        $sql="DELETE FROM `produit` WHERE `id_produit` = :id";
-        $q = $this->bd->prepare($sql);
-        $q->bindValue(':id',$this->idP);
-        $q->execute();
+    public function SupprimerProduit($id){
+          $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+        $sql="DELETE FROM `produit` WHERE `id_produit` =$id";
+        echo $sql;
+      if ($this->bd->query($sql))
+            return true;
+        else 
+            return false;
+
     }
 }

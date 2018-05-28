@@ -22,6 +22,14 @@ class ProduitController {
        else
            return false;
     }
+         public function deleteProduit($id){
+        $p=new Produits('',0,0,'',40,'');
+   
+       if( $p->SupprimerProduit($id))
+           return true;
+       else
+           return false;
+    }
      public function getAllProduit(){
            $p=new Produits('',0,0,'',40,'');
            return $p->getAllProduits();

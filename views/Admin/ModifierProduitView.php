@@ -1,7 +1,16 @@
 <?php
 include_once'../../controllers/ProduitController.php';
- $cate=new ProduitController();
-       $catselect=$cate->getAllProduit();
+ $p=new ProduitController();
+       $catselect=$p->getAllProduit();
+       if(isset($_GET['action'])=='delete')
+       {
+           $id=$_GET['id'];
+           if($p->deleteProduit($id))
+          echo "<script>alert('Product deleted with success');window.location.href='ModifierProduitView.php';</script>";
+           else
+                echo "<script>alert('Productnot deleted');window.location.href='ModifierProduitView.php';</script>";
+               
+       }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -377,7 +386,7 @@ include_once'../../controllers/ProduitController.php';
                              <td> <?php echo $d['id_cat']?></td>
                              <td><input type="image"  width="50px" src="<?php echo $d['image']?>"/></td>
                              <td><a href="ModifierProduitForm.php?id=<?=$d['id_produit']?>"><input type="submit" name="Update" value="Update" onclick="update($d['id_produit'])"/>
-                             <td><a href="AjoutProduitView.php?id=<?=$d['id_produit']?>"><input type="submit" name="Delete" value="Delete"/>
+                             <td><a href="ModifierProduitView.php?action=delete&id=<?=$d['id_produit']?>"><input type="submit" name="Delete" value="Delete"/>
                                 </tr>
                                             <?php
                                         }
