@@ -1,54 +1,12 @@
 <?php
-include_once'../../controllers/ProduitController.php';
- include_once'../../controllers/CategrieController.php';
-  include_once'../../controllers/ContactController.php';
-   include_once'../../controllers/ContactController.php';
+ include_once'../../controllers/ContactController.php';
   $conta=new ContactController();
   $contact=$conta->getAllContact();
-  $conta=new ContactController();
-  $contact=$conta->getAllContact();
-
-      $cate=new CategrieController();
-       $catselect=$cate->getAllCategorie();
-        $p=new ProduitController();
-        $i=$_GET['id'];
-          $pr=$p->getProduitById($i);
-            $cateselect=$p->getAllProduit();
-           
-if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"])&&isset($_FILES["fileImagee"]) )
-{
-    $cat =$_POST["category"];
-    $name =$_POST["name"];
-    $price =$_POST["postfix"];
-   $stock =$_POST["stock"];
-   $des =$_POST["description"];
-
-    $target_dir = "assets/img/";
-    $target_file = $target_dir.basename($_FILES["fileImagee"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        if (move_uploaded_file($_FILES["fileImagee"]["tmp_name"], $target_file)) {
-       
-             if (empty($_FILES["fileImagee"]))
-             {echo"<script>alert('empty');</script>"; 
-       $t=$pr['image'];
-             }
-             else
-             {$t=$target_file;}
-   if  ($p->updateProduit($i,$name,$price,$stock,$des,$cat,$t))
-   
-        echo "<script>alert('Product updated with success');window.location.href='ModifierProduitView.php';</script>"; 
-   else
-        echo  "<script>alert('Error!Product not updated!!');window.location.href='ModifierProduitView.php';</script>";
-       
-        
-}
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:23 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/email-read.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:17:21 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -60,22 +18,13 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
-<script>
-    function(champ)
-    {
-        if (isNaN(champ))
-            champ.style.backgroundColor="red";
-    }
-</script> 
-<body>
-    <div class="am-wrapper">
+    <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
+  <body>
+    <div class="am-wrapper am-aside am-fixed-sidebar">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
         <div class="container-fluid">
           <div class="navbar-header">
-            <div class="page-title"><span>Form Spinner</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
+            <div class="page-title"><span>Email Detail</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
           </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right am-user-nav">
@@ -98,7 +47,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <div class="am-scroller nano">
                         <div class="content nano-content">
                           <ul>
-                              <?php foreach($contact as $d)
+                         <?php foreach($contact as $d)
                               {
                                   ?>
                               
@@ -117,41 +66,27 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                   </li>
                 </ul>
               </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
                 <ul class="dropdown-menu am-notifications">
                   <li>
-                    <div class="title">Notifications<span class="badge"></span></div>
+                    <div class="title">Notifications<span class="badge">3</span></div>
                     <div class="list">
                       <div class="am-scroller nano">
                         <div class="content nano-content">
-                            <ul>
-                               <?php
-                        
-                             foreach($cateselect as $d ){
-                              if(($d['stock_produit']<10) &&($d['stock_produit']>0))
-                                 { ?>
-                      
-                             <li><a href="#">
-                            <div class="logo"><span class="icon s7-gleam"></span></div>
-                            <div class="user-content"><span class="circle"></span>
-                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
-                            <span class="text-content"> This product Will be out of stock !</span></div></a></li>
-                     
-                                            <?php
-                                 } 
-                                 if($d['stock_produit']==0)
-                                 {?>
-                                       <li><a href="#">
-                            <div class="logo"><span class="icon s7-gleam"></span></div>
-                            <div class="user-content"><span class="circle"></span>
-                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
-                            <span class="name"> This product is out of stock !!</span></div></a></li>  
-                                <?php
-                                }
-                                 }
-                                        ?>
-                            </ul>
-                     
+                          <ul>
+                            <li class="active"><a href="#">
+                                <div class="logo"><span class="icon s7-pin"></span></div>
+                                <div class="user-content"><span class="circle"></span><span class="name">Jessica Caruso</span><span class="text-content"> accepted your invitation to join the team.</span><span class="date">2 min ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-add-user"></span></div>
+                                <div class="user-content"><span class="name">Joel King</span><span class="text-content"> is now following you</span><span class="date">2 days ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-gleam"></span></div>
+                                <div class="user-content"><span class="name">Claire Sassu</span><span class="text-content"> is watching your main repository</span><span class="date">2 days ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-add-user"></span></div>
+                                <div class="user-content"><span class="name">Emily Carter</span><span class="text-content"> is now following you</span><span class="date">5 days ago</span></div></a></li>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -221,7 +156,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
           </div>
         </div>
       </nav>
-      <div class="am-left-sidebar">
+        <div class="am-left-sidebar">
           <div class="content">
           <div class="am-logo"></div>
           <ul class="sidebar-elements">
@@ -268,96 +203,53 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             </li>
               </div>
       </div>
-      <div class="am-content">
-        <div class="page-head">
-          <h2>Products</h2>
-          <ol class="breadcrumb">
-              <li><a href="ProduitsView.php">Products</a></li>
-            <li><a href="#">Add Product</a></li>
-            
-          </ol>
-        </div>
-                  <div class="main-content">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3>Add a product</h3>
+      <div class="am-content am-no-padding">
+        <aside class="page-aside">
+          <div class="am-scroller nano">
+            <div class="nano-content">
+              <div class="content">
+                <div class="aside-header">
+                  <button data-target=".aside-nav" data-toggle="collapse" type="button" class="navbar-toggle"><span class="icon s7-angle-down"></span></button>
+                  <h2>Mail Service</h2>
+                  <p class="description">Service description</p>
                 </div>
-                <div class="panel-body">
-                    <form action="ModifierProduitForm.php?id=<?=$pr['id_produit']?>" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
-                       <div class="form-group">
-                      <label class="col-sm-3 control-label">Categories</label>
-                      <div class="col-sm-6">
-                        <select class="form-control" name="category">
-                          <?php
-                       
-                             foreach($catselect as $d ){
-                                            ?>
-                                            <option value="<?php echo $d['id_cat'];
-                                                   if($d['id_cat']===$pr['id_cat'])
-                                                   {?> "selected> <?php
-                                                   }
-                                                       ?><?php echo $d['lib_cat'] ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                        
-                        </select>
-                      </div>
-                    </div>
-                
-                     <div class="form-group">
-                      <label class="col-sm-3 control-label">Price</label>
-                      <div class="col-sm-6">
-                        <input id="postfix" type="text" value="<?php echo $pr['prix_produit']?>" name="postfix" class="form-control">
-                      </div>
-                    </div>
-                        <br>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Name</label>
-                      <div class="col-sm-6">
-                        <input type="text" required="yes" placeholder="name" value="<?php echo $pr['libelle_produit']?>" class="form-control" name="name">
-                      </div>
-                    </div>
-                  
-               
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Stock</label>
-                      <div class="col-sm-6">
-                        <input type="number" required="yes" placeholder="stock" value="<?php echo $pr['stock_produit']?>" class="form-control" name="stock" onblur="verifStock(this)">
-                      </div>
-                    </div>
-                 
-                             <div class="form-group">
-                      <label class="col-sm-3 control-label">Description</label>
-                      <div class="col-sm-6">
-                        <textarea required="" class="form-control"  name="description"><?php echo $pr['description_produit']?></textarea>
-                      </div>
-                    </div>
-                   
-                           <div class="form-group">
-                      <label class="col-sm-3 control-label">Images</label>
-                      <div class="col-sm-6">
-                  
-                          <b> Image actuelle</b><br> <input type="image" width="85px"src="<?php echo $pr['image']?>"</input><br><br>
-                     <input type="file" accept="image/jpeg/jpg/png" id="fileImagee" name="fileImagee" >
-                                  
-                      </div>
-                    </div>
-                    <div class="form-group">
-                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="Update">
-                        <button class="btn btn-space btn-default" name="cancel">Cancel</button>
-                   </center>
-                    </div>
-                       
-                  </form>
-                </div>
+              </div>
+              <div class="aside-nav collapse">
+                <ul class="nav">
+                  <li class="active"><a href="#"><span class="label label-primary">6</span><i class="icon s7-drawer"></i> Inbox</a></li>
+                  <li><a href="#"><i class="icon s7-mail"></i> Sent Mail</a></li>
+                  <li><a href="#"><i class="icon s7-portfolio"></i> Important</a></li>
+                  <li><a href="#"><span class="label label-default">3</span><i class="icon s7-file"></i> Drafts</a></li>
+                  <li><a href="#"><i class="icon s7-star"></i> Tags</a></li>
+                  <li><a href="#"><i class="icon s7-trash"></i> Trash</a></li>
+                </ul>
+                <p class="title">Labels</p>
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#"><span class="label label-success">0</span> Inbox</a></li>
+                  <li><a href="#"><span class="label label-danger">8</span>Sent Mail</a></li>
+                  <li><a href="#"><span class="label label-warning">4</span>Important</a></li>
+                </ul>
+                <div class="aside-compose"><a class="btn btn-primary btn-block">Compose Email</a></div>
               </div>
             </div>
           </div>
+        </aside>
+        <div class="main-content">
+          <div class="email-head">
+            <h3>John Doe 
+              <div class="icons"><a href="#"><i class="icon s7-drawer"></i></a><a href="#"><i class="icon s7-back"></i></a></div>
+            </h3>
+            <h4>Development files
+              <div class="date"><a href="#"><i class="icon s7-star"></i></a> Jan 9, 10:40 AM</div>
+            </h4>
+          </div>
+          <div class="email-body">
+            <p>Hello,</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+            <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus?</p>
+            <p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.</p>
+          </div>
         </div>
-
       </div>
       <nav class="am-right-sidebar">
         <div class="sb-content">
@@ -536,13 +428,12 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     <script src="assets/js/main.js" type="text/javascript"></script>
     <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/lib/theme-switcher/theme-switcher.min.js" type="text/javascript"></script>
-    <script src="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
-      	App.bootstrapSpinner();
       });
+      
     </script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -576,7 +467,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #7a98bf;" class="color"></div>
             <div style="background: #cccccc;" class="color"></div>
             <div class="name"> Default</div>
-          </div><a href="form-spinnerd976.html?theme=default"></a>
+          </div><a href="email-readd976.html?theme=default"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -586,7 +477,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #45D8C2;" class="color"></div>
             <div style="background: #e0e0e0;" class="color"></div>
             <div class="name"> Twilight</div>
-          </div><a href="form-spinner056d.html?theme=twilight"></a>
+          </div><a href="email-read056d.html?theme=twilight"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -596,7 +487,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #49AD70;" class="color"></div>
             <div style="background: #DFDFDF;" class="color"></div>
             <div class="name"> Google</div>
-          </div><a href="form-spinner421b.html?theme=google"></a>
+          </div><a href="email-read421b.html?theme=google"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -606,7 +497,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #8B8CCC;" class="color"></div>
             <div style="background: #CCCCCC;" class="color"></div>
             <div class="name"> Sunrise</div>
-          </div><a href="form-spinnera494.html?theme=sunrise"></a>
+          </div><a href="email-reada494.html?theme=sunrise"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -616,11 +507,11 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #FF7FA0;" class="color"></div>
             <div style="background: #dfdfdf;" class="color"></div>
             <div class="name">Cake</div>
-          </div><a href="form-spinnere2f8.html?theme=cake"></a>
+          </div><a href="email-reade2f8.html?theme=cake"></a>
         </div>
       </div>
     </div>
   </body>
 
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:25 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/email-read.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:17:22 GMT -->
 </html>

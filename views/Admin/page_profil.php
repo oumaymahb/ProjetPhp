@@ -1,54 +1,12 @@
 <?php
-include_once'../../controllers/ProduitController.php';
- include_once'../../controllers/CategrieController.php';
-  include_once'../../controllers/ContactController.php';
-   include_once'../../controllers/ContactController.php';
+ include_once'../../controllers/ContactController.php';
   $conta=new ContactController();
   $contact=$conta->getAllContact();
-  $conta=new ContactController();
-  $contact=$conta->getAllContact();
-
-      $cate=new CategrieController();
-       $catselect=$cate->getAllCategorie();
-        $p=new ProduitController();
-        $i=$_GET['id'];
-          $pr=$p->getProduitById($i);
-            $cateselect=$p->getAllProduit();
-           
-if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"])&&isset($_FILES["fileImagee"]) )
-{
-    $cat =$_POST["category"];
-    $name =$_POST["name"];
-    $price =$_POST["postfix"];
-   $stock =$_POST["stock"];
-   $des =$_POST["description"];
-
-    $target_dir = "assets/img/";
-    $target_file = $target_dir.basename($_FILES["fileImagee"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        if (move_uploaded_file($_FILES["fileImagee"]["tmp_name"], $target_file)) {
-       
-             if (empty($_FILES["fileImagee"]))
-             {echo"<script>alert('empty');</script>"; 
-       $t=$pr['image'];
-             }
-             else
-             {$t=$target_file;}
-   if  ($p->updateProduit($i,$name,$price,$stock,$des,$cat,$t))
-   
-        echo "<script>alert('Product updated with success');window.location.href='ModifierProduitView.php';</script>"; 
-   else
-        echo  "<script>alert('Error!Product not updated!!');window.location.href='ModifierProduitView.php';</script>";
-       
-        
-}
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:23 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/pages-profile.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:47 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -60,22 +18,13 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
-<script>
-    function(champ)
-    {
-        if (isNaN(champ))
-            champ.style.backgroundColor="red";
-    }
-</script> 
-<body>
+    <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
+  <body>
     <div class="am-wrapper">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
         <div class="container-fluid">
           <div class="navbar-header">
-            <div class="page-title"><span>Form Spinner</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
+            <div class="page-title"><span>Profile</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
           </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right am-user-nav">
@@ -88,7 +37,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                 </ul>
               </li>
             </ul>
-       
+        
             <ul class="nav navbar-nav navbar-right am-icons-nav">
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-comment"></span></a>
                 <ul class="dropdown-menu am-messages">
@@ -98,7 +47,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <div class="am-scroller nano">
                         <div class="content nano-content">
                           <ul>
-                              <?php foreach($contact as $d)
+                          <?php foreach($contact as $d)
                               {
                                   ?>
                               
@@ -117,41 +66,27 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                   </li>
                 </ul>
               </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
                 <ul class="dropdown-menu am-notifications">
                   <li>
-                    <div class="title">Notifications<span class="badge"></span></div>
+                    <div class="title">Notifications<span class="badge">3</span></div>
                     <div class="list">
                       <div class="am-scroller nano">
                         <div class="content nano-content">
-                            <ul>
-                               <?php
-                        
-                             foreach($cateselect as $d ){
-                              if(($d['stock_produit']<10) &&($d['stock_produit']>0))
-                                 { ?>
-                      
-                             <li><a href="#">
-                            <div class="logo"><span class="icon s7-gleam"></span></div>
-                            <div class="user-content"><span class="circle"></span>
-                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
-                            <span class="text-content"> This product Will be out of stock !</span></div></a></li>
-                     
-                                            <?php
-                                 } 
-                                 if($d['stock_produit']==0)
-                                 {?>
-                                       <li><a href="#">
-                            <div class="logo"><span class="icon s7-gleam"></span></div>
-                            <div class="user-content"><span class="circle"></span>
-                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
-                            <span class="name"> This product is out of stock !!</span></div></a></li>  
-                                <?php
-                                }
-                                 }
-                                        ?>
-                            </ul>
-                     
+                          <ul>
+                            <li class="active"><a href="#">
+                                <div class="logo"><span class="icon s7-pin"></span></div>
+                                <div class="user-content"><span class="circle"></span><span class="name">Jessica Caruso</span><span class="text-content"> accepted your invitation to join the team.</span><span class="date">2 min ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-add-user"></span></div>
+                                <div class="user-content"><span class="name">Joel King</span><span class="text-content"> is now following you</span><span class="date">2 days ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-gleam"></span></div>
+                                <div class="user-content"><span class="name">Claire Sassu</span><span class="text-content"> is watching your main repository</span><span class="date">2 days ago</span></div></a></li>
+                            <li><a href="#">
+                                <div class="logo"><span class="icon s7-add-user"></span></div>
+                                <div class="user-content"><span class="name">Emily Carter</span><span class="text-content"> is now following you</span><span class="date">5 days ago</span></div></a></li>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -221,7 +156,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
           </div>
         </div>
       </nav>
-      <div class="am-left-sidebar">
+     <div class="am-left-sidebar">
           <div class="content">
           <div class="am-logo"></div>
           <ul class="sidebar-elements">
@@ -269,95 +204,203 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
               </div>
       </div>
       <div class="am-content">
-        <div class="page-head">
-          <h2>Products</h2>
-          <ol class="breadcrumb">
-              <li><a href="ProduitsView.php">Products</a></li>
-            <li><a href="#">Add Product</a></li>
-            
-          </ol>
-        </div>
-                  <div class="main-content">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3>Add a product</h3>
+        <div class="main-content">
+          <div class="user-profile">
+            <div class="user-display">
+              <div class="photo"><img src="assets/img/profile.jpg"></div>
+              <div class="bottom">
+                <div class="user-avatar"><span class="status"></span><img src="assets/img/avatar.jpg"></div>
+                <div class="user-info">
+                  <h4>Samantha Amaretti</h4><span>I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
                 </div>
-                <div class="panel-body">
-                    <form action="ModifierProduitForm.php?id=<?=$pr['id_produit']?>" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
-                       <div class="form-group">
-                      <label class="col-sm-3 control-label">Categories</label>
-                      <div class="col-sm-6">
-                        <select class="form-control" name="category">
-                          <?php
-                       
-                             foreach($catselect as $d ){
-                                            ?>
-                                            <option value="<?php echo $d['id_cat'];
-                                                   if($d['id_cat']===$pr['id_cat'])
-                                                   {?> "selected> <?php
-                                                   }
-                                                       ?><?php echo $d['lib_cat'] ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                        
-                        </select>
-                      </div>
-                    </div>
-                
-                     <div class="form-group">
-                      <label class="col-sm-3 control-label">Price</label>
-                      <div class="col-sm-6">
-                        <input id="postfix" type="text" value="<?php echo $pr['prix_produit']?>" name="postfix" class="form-control">
-                      </div>
-                    </div>
-                        <br>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Name</label>
-                      <div class="col-sm-6">
-                        <input type="text" required="yes" placeholder="name" value="<?php echo $pr['libelle_produit']?>" class="form-control" name="name">
-                      </div>
-                    </div>
-                  
-               
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Stock</label>
-                      <div class="col-sm-6">
-                        <input type="number" required="yes" placeholder="stock" value="<?php echo $pr['stock_produit']?>" class="form-control" name="stock" onblur="verifStock(this)">
-                      </div>
-                    </div>
-                 
-                             <div class="form-group">
-                      <label class="col-sm-3 control-label">Description</label>
-                      <div class="col-sm-6">
-                        <textarea required="" class="form-control"  name="description"><?php echo $pr['description_produit']?></textarea>
-                      </div>
-                    </div>
-                   
-                           <div class="form-group">
-                      <label class="col-sm-3 control-label">Images</label>
-                      <div class="col-sm-6">
-                  
-                          <b> Image actuelle</b><br> <input type="image" width="85px"src="<?php echo $pr['image']?>"</input><br><br>
-                     <input type="file" accept="image/jpeg/jpg/png" id="fileImagee" name="fileImagee" >
-                                  
-                      </div>
-                    </div>
-                    <div class="form-group">
-                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="Update">
-                        <button class="btn btn-space btn-default" name="cancel">Cancel</button>
-                   </center>
-                    </div>
-                       
-                  </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <div class="info-block panel panel-default">
+                  <div class="panel-heading">
+                    <h4>About me</h4>
+                  </div>
+                  <div class="panel-body"><span class="description">I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
+                    <table class="no-border no-strip skills">
+                      <tbody class="no-border-x no-border-y">
+                        <tr>
+                          <td class="item">Ocupation:<span class="icon s7-portfolio"></span></td>
+                          <td>Developer and designer</td>
+                        </tr>
+                        <tr>
+                          <td class="item">Birthday:<span class="icon s7-gift"></span></td>
+                          <td>16 September 1989</td>
+                        </tr>
+                        <tr>
+                          <td class="item">Mobile:<span class="icon s7-phone"></span></td>
+                          <td>(999) 999-9999</td>
+                        </tr>
+                        <tr>
+                          <td class="item">Location:<span class="icon s7-map-marker"></span></td>
+                          <td>Montreal, Canada</td>
+                        </tr>
+                        <tr>
+                          <td class="item">Website:<span class="icon s7-global"></span></td>
+                          <td>www.website.com</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                                <div class="widget widget-fullwidth widget-small">
+                                  <div class="widget-head">
+                                    <div class="tools"><span class="value">58Mb</span></div><span class="title">Development Activity</span>
+                                  </div>
+                                  <div class="chart-container">
+                                    <div id="linechart-mini1" style="height: 150px;"></div>
+                                  </div>
+                                  <table class="table table-striped table-fw-widget table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>Operating System</th>
+                                        <th class="number">Users</th>
+                                        <th class="number">Rebound</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="no-border-x">
+                                      <tr>
+                                        <td>Windows</td>
+                                        <td class="number">186</td>
+                                        <td class="number">51%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Mac OS</td>
+                                        <td class="number">145</td>
+                                        <td class="number">64%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Linux</td>
+                                        <td class="number">89</td>
+                                        <td class="number">38%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Android</td>
+                                        <td class="number">67</td>
+                                        <td class="number">57%</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+								bottom .user-avatar {
+    position: absolute;
+    left: 46px;
+    top: -30px;
+}
+              </div>
+              <div class="col-md-4 col-sm-6">
+                                <div class="widget widget-fullwidth widget-small">
+                                  <div class="widget-head">
+                                    <div class="tools"><span class="value">124</span></div><span class="title">Project Issues</span>
+                                  </div>
+                                  <div class="chart-container">
+                                    <div id="barchart-mini1" style="height: 150px;"></div>
+                                  </div>
+                                  <table class="table table-striped table-fw-widget table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>Operating System</th>
+                                        <th class="number">Users</th>
+                                        <th class="number">Rebound</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="no-border-x">
+                                      <tr>
+                                        <td>Windows</td>
+                                        <td class="number">186</td>
+                                        <td class="number">51%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Mac OS</td>
+                                        <td class="number">145</td>
+                                        <td class="number">64%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Linux</td>
+                                        <td class="number">89</td>
+                                        <td class="number">38%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Android</td>
+                                        <td class="number">67</td>
+                                        <td class="number">57%</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="widget widget-calendar">
+                  <div class="cal-container">
+                    <div class="cal-notes"><span class="day">Thursday</span><span class="date">September 24</span><span class="title">Notes<span class="icon s7-plus"></span></span>
+                      <ul>
+                        <li><span class="hour">14h</span><span class="event-name">Meeting with investors</span></li>
+                        <li><span class="hour">8h</span><span class="event-name">Dentist date</span></li>
+                      </ul>
+                    </div>
+                    <div class="cal-calendar">
+                      <div class="ui-datepicker"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                                <div class="widget widget-fullwidth widget-small">
+                                  <div class="widget-head">
+                                    <div class="tools"><span class="icon s7-upload"></span><span class="icon s7-edit"></span><span class="icon s7-close"></span></div><span class="title">Latest Commits</span>
+                                  </div>
+                                  <div class="table-container">
+                                    <table class="table table-striped table-fw-widget table-hover">
+                                      <thead>
+                                        <tr>
+                                          <th width="32%">User</th>
+                                          <th width="45%">Commit</th>
+                                          <th>Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="no-border-x">
+                                        <tr>
+                                          <td class="user-avatar"> <img src="assets/img/avatar4.jpg">Claire Sassu</td>
+                                          <td>Initial commit</td>
+                                          <td>Aug 6, 2015</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="user-avatar"> <img src="assets/img/avatar3.jpg">Joel King</td>
+                                          <td>Main structure markup</td>
+                                          <td>Jul 28, 2015</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="user-avatar"> <img src="assets/img/avatar7.jpg">Maggie Jackson</td>
+                                          <td>Left sidebar adjusments</td>
+                                          <td>Jul 15, 2015</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="user-avatar"> <img src="assets/img/avatar6.jpg">Mike Bolthort</td>
+                                          <td>Topbar dropdown style</td>
+                                          <td>Jun 30, 2015</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="user-avatar"> <img src="assets/img/avatar8.jpg">Jhon Voltemar</td>
+                                          <td>Footer html structure</td>
+                                          <td>Jun 23, 2015</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <nav class="am-right-sidebar">
         <div class="sb-content">
@@ -536,12 +579,17 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     <script src="assets/js/main.js" type="text/javascript"></script>
     <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/lib/theme-switcher/theme-switcher.min.js" type="text/javascript"></script>
-    <script src="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-flot/jquery.flot.pie.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-flot/plugins/curvedLines.js" type="text/javascript"></script>
+    <script src="assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
-      	App.bootstrapSpinner();
+      	App.pageProfile();
       });
     </script>
     <script type="text/javascript">
@@ -576,7 +624,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #7a98bf;" class="color"></div>
             <div style="background: #cccccc;" class="color"></div>
             <div class="name"> Default</div>
-          </div><a href="form-spinnerd976.html?theme=default"></a>
+          </div><a href="pages-profiled976.html?theme=default"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -586,7 +634,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #45D8C2;" class="color"></div>
             <div style="background: #e0e0e0;" class="color"></div>
             <div class="name"> Twilight</div>
-          </div><a href="form-spinner056d.html?theme=twilight"></a>
+          </div><a href="pages-profile056d.html?theme=twilight"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -596,7 +644,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #49AD70;" class="color"></div>
             <div style="background: #DFDFDF;" class="color"></div>
             <div class="name"> Google</div>
-          </div><a href="form-spinner421b.html?theme=google"></a>
+          </div><a href="pages-profile421b.html?theme=google"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -606,7 +654,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #8B8CCC;" class="color"></div>
             <div style="background: #CCCCCC;" class="color"></div>
             <div class="name"> Sunrise</div>
-          </div><a href="form-spinnera494.html?theme=sunrise"></a>
+          </div><a href="pages-profilea494.html?theme=sunrise"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -616,11 +664,11 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
             <div style="background: #FF7FA0;" class="color"></div>
             <div style="background: #dfdfdf;" class="color"></div>
             <div class="name">Cake</div>
-          </div><a href="form-spinnere2f8.html?theme=cake"></a>
+          </div><a href="pages-profilee2f8.html?theme=cake"></a>
         </div>
       </div>
     </div>
   </body>
 
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:25 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/pages-profile.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:50 GMT -->
 </html>

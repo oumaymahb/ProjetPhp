@@ -1,31 +1,12 @@
 <?php
- include_once'../../controllers/CategrieController.php';
-      $cate=new CategrieController();
-       $catselect=$cate->getAllCategorie();
-        $i=$_GET['id'];
-          $pr=$cate->getCategorieById($i);
-           
-if (isset($_POST["category"]) )
-{
-    $cat =$_POST["CategoryName"];
-
-
-          
-   if  ($p->updateCategory($i,$cat))
-   
-        echo "<script>alert('Category updated with success');window.location.href='ModifierCategorieView.php';</script>"; 
-   else
-        echo  "<script>alert('Error!Category not updated!!');window.location.href='ModifierCategorieView.php';</script>";
-       
-        
-}
-
-
+ include_once'../../controllers/ContactController.php';
+  $conta=new ContactController();
+  $contact=$conta->getAllContact();
 ?>
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:23 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/email-compose.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:17:22 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -37,22 +18,16 @@ if (isset($_POST["category"]) )
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
     <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
-<script>
-    function(champ)
-    {
-        if (isNaN(champ))
-            champ.style.backgroundColor="red";
-    }
-</script> 
-<body>
-    <div class="am-wrapper">
+    <link rel="stylesheet" type="text/css" href="assets/lib/select2/css/select2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/summernote/summernote.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/lib/font-awesome/css/font-awesome.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
+  <body>
+    <div class="am-wrapper am-aside am-fixed-sidebar">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
         <div class="container-fluid">
           <div class="navbar-header">
-            <div class="page-title"><span>Form Spinner</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
+            <div class="page-title"><span>Email Compose</span></div><a href="#" class="am-toggle-left-sidebar navbar-toggle collapsed"><span class="icon-bar"><span></span><span></span><span></span></span></a><a href="index-2.html" class="navbar-brand"></a>
           </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
           <div id="am-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right am-user-nav">
@@ -65,19 +40,7 @@ if (isset($_POST["category"]) )
                 </ul>
               </li>
             </ul>
-            <ul class="nav navbar-nav am-nav-right">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Services <span class="angle-down s7-angle-down"></span></a>
-                <ul role="menu" class="dropdown-menu">
-                  <li><a href="#">UI Consulting</a></li>
-                  <li><a href="#">Web Development</a></li>
-                  <li><a href="#">Database Management</a></li>
-                  <li><a href="#">Seo Improvement</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Support</a></li>
-            </ul>
+        
             <ul class="nav navbar-nav navbar-right am-icons-nav">
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-comment"></span></a>
                 <ul class="dropdown-menu am-messages">
@@ -87,18 +50,17 @@ if (isset($_POST["category"]) )
                       <div class="am-scroller nano">
                         <div class="content nano-content">
                           <ul>
+                         <?php foreach($contact as $d)
+                              {
+                                  ?>
+                              
                             <li class="active"><a href="#">
                                 <div class="logo"><img src="assets/img/avatar2.jpg"></div>
-                                <div class="user-content"><span class="date">April 25</span><span class="name">Jessica Caruso</span><span class="text-content">Request you to be a part of the same so that we can work...</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar3.jpg"></div>
-                                <div class="user-content"><span class="date">March 18</span><span class="name">Joel King</span><span class="text-content"> We wish to extend the building.</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar4.jpg"></div>
-                                <div class="user-content"><span class="date">January 3</span><span class="name">Claire Sassu</span><span class="text-content"> We the ladies of a block are wiling to join together to set up a catering...</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar5.jpg"></div>
-                                <div class="user-content"><span class="date">January 2</span><span class="name">Emily Carter</span><span class="text-content"> Request you to be a part of the same so that we can work...</span></div></a></li>
+                                <div class="user-content"><span class="date"><?php echo $d['date_c'] ?></span>
+                                <span class="name"><?php echo $d['email'] ?></span>
+                                <span class="text-content"><?php echo $d['message'] ?></span>
+                                </div></a></li>
+                              <?php } ?>
                           </ul>
                         </div>
                       </div>
@@ -197,102 +159,123 @@ if (isset($_POST["category"]) )
           </div>
         </div>
       </nav>
-      <div class="am-left-sidebar">
+        <div class="am-left-sidebar">
           <div class="content">
           <div class="am-logo"></div>
           <ul class="sidebar-elements">
             <li class="parent"><a href="#"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
              <ul class="sub-menu">
-                  <li class="active"><a href="ProduitsView.php">Products</a>
+                  <li class="active"><a href="">Products</a>
                 </li>
                  <li ><a href="ajoutProduitView.php">Add a product</a>
                 </li>
-                <li ><a href="ModifierProduitView.php">Update a product</a>
+                <li ><a href="ModifierProduitView.php">Update/Delete a product</a>
                 </li>
-                <li class="active"><a href="dashboard2.html">Categories</a>
+                <li class="active"><a href="">Categories</a>
                 </li>
                  <li ><a href="ajoutCategorieView.php">Add a Category</a>
                 </li>
-                <li class="active"><a href="dashboard3.html">Orders</a>
+                 <li ><a href="ModifierCategorieView.php">Update/Delete a Category</a>
+                 </li>
+                <li class="active"><a href="">Orders</a>
                 </li>
             
               </ul>
             </li>
        
-            <li class="parent"><a href="#"><i class="icon s7-box2"></i><span>Tables</span></a>
-              <ul class="sub-menu">
-                <li><a href="tables-general.html">General</a>
-                </li>
-                <li><a href="tables-datatables.html">Data Tables</a>
-                </li>
-              </ul>
-            </li>
+     
                   <li class="parent"><a href="#"><i class="icon s7-mail"></i><span>Email</span></a>
               <ul class="sub-menu">
-                <li><a href="email-inbox.html">Inbox</a>
+                <li><a href="email-inbox.php">Inbox</a>
                 </li>
-                <li><a href="email-read.html">Email Detail</a>
+                <li><a href="email-read.php">Email Detail</a>
                 </li>
-                <li><a href="email-compose.html">Email Compose</a>
+                <li><a href="emaiil-compose.php">Email Compose</a>
                 </li>
               </ul>
             </li>
             <li class="parent"><a href="#"><i class="icon s7-note2"></i><span>Pages</span></a>
               <ul class="sub-menu">
-                <li><a href="pages-blank.html">Blank Page</a>
+              
+                <li><a href="page_profil.php">Profile</a>
                 </li>
-                <li><a href="pages-blank-header.html">Blank Page Header</a>
-                </li>
-                <li><a href="pages-profile.html">Profile</a>
-                </li>
-                <li><a href="pages-calendar.html">Calendar</a>
+                <li><a href="page_calendrier.php">Calendar</a>
                 </li>
     
               </ul>
             </li>
               </div>
       </div>
-      <div class="am-content">
-        <div class="page-head">
-          <h2>Products</h2>
-          <ol class="breadcrumb">
-              <li><a href="ProduitsView.php">Products</a></li>
-            <li><a href="#">Add Product</a></li>
-            
-          </ol>
-        </div>
-                  <div class="main-content">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3>Update a category</h3>
+      <div class="am-content am-no-padding">
+        <aside class="page-aside">
+          <div class="am-scroller nano">
+            <div class="nano-content">
+              <div class="content">
+                <div class="aside-header">
+                  <button data-target=".aside-nav" data-toggle="collapse" type="button" class="navbar-toggle"><span class="icon s7-angle-down"></span></button>
+                  <h2>Mail Service</h2>
+                  <p class="description">Service description</p>
                 </div>
-                <div class="panel-body">
-                    <form action="ModifierCategorieForm.php?id=<?=$pr['id_cat']?>" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
-                      
-                 
-                             <div class="form-group">
-                      <label class="col-sm-3 control-label">Category name</label>
-                      <div class="col-sm-6">
-                        <textarea required="" class="form-control"  name="CategoryName"><?php echo $pr['lib_cat']?></textarea>
-                      </div>
-                    </div>
-                   
-                         
-                    <div class="form-group">
-                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="Update">
-                        <button class="btn btn-space btn-default" name="cancel">Cancel</button>
-                   </center>
-                    </div>
-                       
-                  </form>
+              </div>
+              <div class="aside-nav collapse">
+                <ul class="nav">
+                  <li class="active"><a href="#"><span class="label label-primary">6</span><i class="icon s7-drawer"></i> Inbox</a></li>
+                  <li><a href="#"><i class="icon s7-mail"></i> Sent Mail</a></li>
+                  <li><a href="#"><i class="icon s7-portfolio"></i> Important</a></li>
+                  <li><a href="#"><span class="label label-default">3</span><i class="icon s7-file"></i> Drafts</a></li>
+                  <li><a href="#"><i class="icon s7-star"></i> Tags</a></li>
+                  <li><a href="#"><i class="icon s7-trash"></i> Trash</a></li>
+                </ul>
+                <p class="title">Labels</p>
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#"><span class="label label-success">0</span> Inbox</a></li>
+                  <li><a href="#"><span class="label label-danger">8</span>Sent Mail</a></li>
+                  <li><a href="#"><span class="label label-warning">4</span>Important</a></li>
+                </ul>
+                <div class="aside-compose"><a class="btn btn-primary btn-block">Compose Email</a></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <div class="main-content">
+          <div class="email-subject">
+            <input type="text" placeholder="Enter your subject here">
+          </div>
+          <div class="email-recipient">
+            <div class="to">
+              <div class="form-group row">
+                <label class="col-sm-1 control-label">To:</label>
+                <div class="col-sm-11">
+                  <select multiple="" class="tags">
+                    <option value="1" selected="">myfriend@example.com</option>
+                    <option value="2" selected="">info@emailserver.com</option>
+                    <option value="3" selected="">Company Partners</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="to cc">
+              <div class="form-group row">
+                <label class="col-sm-1 control-label">Cc:</label>
+                <div class="col-sm-11">
+                  <select multiple="" class="tags">
+                    <option value="1" selected="">Principal</option>
+                  </select>
                 </div>
               </div>
             </div>
           </div>
+          <div class="email editor">
+            <div id="email-editor">
+              <p>Hello,</p>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-space"><i class="icon s7-mail"></i> Send</button>
+              <button class="btn btn-default btn-space"><i class="icon s7-close"></i> Cancel</button>
+            </div>
+          </div>
         </div>
-
       </div>
       <nav class="am-right-sidebar">
         <div class="sb-content">
@@ -471,12 +454,14 @@ if (isset($_POST["category"]) )
     <script src="assets/js/main.js" type="text/javascript"></script>
     <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/lib/theme-switcher/theme-switcher.min.js" type="text/javascript"></script>
-    <script src="assets/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+    <script src="assets/lib/summernote/summernote.min.js" type="text/javascript"></script>
+    <script src="assets/lib/summernote/summernote-ext-amaretti.js" type="text/javascript"></script>
+    <script src="assets/lib/select2/js/select2.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	//initialize the javascript
       	App.init();
-      	App.bootstrapSpinner();
+      	App.emailCompose();
       });
     </script>
     <script type="text/javascript">
@@ -511,7 +496,7 @@ if (isset($_POST["category"]) )
             <div style="background: #7a98bf;" class="color"></div>
             <div style="background: #cccccc;" class="color"></div>
             <div class="name"> Default</div>
-          </div><a href="form-spinnerd976.html?theme=default"></a>
+          </div><a href="email-composed976.html?theme=default"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -521,7 +506,7 @@ if (isset($_POST["category"]) )
             <div style="background: #45D8C2;" class="color"></div>
             <div style="background: #e0e0e0;" class="color"></div>
             <div class="name"> Twilight</div>
-          </div><a href="form-spinner056d.html?theme=twilight"></a>
+          </div><a href="email-compose056d.html?theme=twilight"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -531,7 +516,7 @@ if (isset($_POST["category"]) )
             <div style="background: #49AD70;" class="color"></div>
             <div style="background: #DFDFDF;" class="color"></div>
             <div class="name"> Google</div>
-          </div><a href="form-spinner421b.html?theme=google"></a>
+          </div><a href="email-compose421b.html?theme=google"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -541,7 +526,7 @@ if (isset($_POST["category"]) )
             <div style="background: #8B8CCC;" class="color"></div>
             <div style="background: #CCCCCC;" class="color"></div>
             <div class="name"> Sunrise</div>
-          </div><a href="form-spinnera494.html?theme=sunrise"></a>
+          </div><a href="email-composea494.html?theme=sunrise"></a>
         </div>
         <div class="style">
           <div class="colors">
@@ -551,12 +536,11 @@ if (isset($_POST["category"]) )
             <div style="background: #FF7FA0;" class="color"></div>
             <div style="background: #dfdfdf;" class="color"></div>
             <div class="name">Cake</div>
-          </div><a href="form-spinnere2f8.html?theme=cake"></a>
+          </div><a href="email-composee2f8.html?theme=cake"></a>
         </div>
       </div>
     </div>
   </body>
 
-<!-- Mirrored from foxythemes.net/preview/products/amaretti/form-spinner.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:25 GMT -->
+<!-- Mirrored from foxythemes.net/preview/products/amaretti/email-compose.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:17:23 GMT -->
 </html>
-

@@ -29,16 +29,17 @@ class CategrieController {
     }
        public function deleteCategory($id){
         $p=new Categories('');
-   
+
        if( $p->SupprimerCategory($id))
            return true;
        else
            return false;
     }
      public function updateCategory($id,$lib){
+         
         $p=new Categories($lib);
-   
-       if( $p->ModifierCategorie($id))
+  
+       if( $p->ModifierCategorie($id,$lib))
            return true;
        else
            return false;

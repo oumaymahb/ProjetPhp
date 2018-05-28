@@ -40,21 +40,16 @@ $row = mysqli_fetch_assoc($result);
   
         return $row;
     }
-      public function ModifierCategorie($id)
+      public function ModifierCategorie($id,$cat)
     {
-            $this->bd=new Connexion();
+      $this->bd=new Connexion();
       $this->bd=$this->bd->getConnexion();
-      $this->setIdP($id); 
-  
-   
-        $sql="UPDATE `categorie` SET  `lib_cat`='$this->libelle  WHERE `id_cat`=$id";
+      $sql="UPDATE `categorie` SET  `lib_cat`='$cat' WHERE `id_cat`=$id";
 
-  
         if ($this->bd->query($sql))
             return true;
         else 
             return false;
-
             
     }
         public function getCategoriesById($id){
@@ -62,7 +57,7 @@ $row = mysqli_fetch_assoc($result);
          $this->bd=new Connexion();
       $this->bd=$this->bd->getConnexion();
 
-      $sql="SELECT * FROM catageorie where id_cat='$id'";
+      $sql="SELECT * FROM categorie where id_cat='$id'";
      
 
       $result = mysqli_query( $this->bd,$sql) or die(mysql_error());

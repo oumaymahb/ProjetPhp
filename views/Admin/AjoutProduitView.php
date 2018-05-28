@@ -1,6 +1,11 @@
 <?php
 include_once'../../controllers/ProduitController.php';
  include_once'../../controllers/CategrieController.php';
+  include_once'../../controllers/ContactController.php';
+  $conta=new ContactController();
+  $contact=$conta->getAllContact();
+ $prp=new ProduitController();
+       $cateselect=$prp->getAllProduit();;
       $cate=new CategrieController();
        $catselect=$cate->getAllCategorie();
      
@@ -74,19 +79,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                 </ul>
               </li>
             </ul>
-            <ul class="nav navbar-nav am-nav-right">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Services <span class="angle-down s7-angle-down"></span></a>
-                <ul role="menu" class="dropdown-menu">
-                  <li><a href="#">UI Consulting</a></li>
-                  <li><a href="#">Web Development</a></li>
-                  <li><a href="#">Database Management</a></li>
-                  <li><a href="#">Seo Improvement</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Support</a></li>
-            </ul>
+       
             <ul class="nav navbar-nav navbar-right am-icons-nav">
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-comment"></span></a>
                 <ul class="dropdown-menu am-messages">
@@ -95,19 +88,19 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                     <div class="list">
                       <div class="am-scroller nano">
                         <div class="content nano-content">
+                            
                           <ul>
+                                <?php foreach($contact as $d)
+                              {
+                                  ?>
+                              
                             <li class="active"><a href="#">
                                 <div class="logo"><img src="assets/img/avatar2.jpg"></div>
-                                <div class="user-content"><span class="date">April 25</span><span class="name">Jessica Caruso</span><span class="text-content">Request you to be a part of the same so that we can work...</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar3.jpg"></div>
-                                <div class="user-content"><span class="date">March 18</span><span class="name">Joel King</span><span class="text-content"> We wish to extend the building.</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar4.jpg"></div>
-                                <div class="user-content"><span class="date">January 3</span><span class="name">Claire Sassu</span><span class="text-content"> We the ladies of a block are wiling to join together to set up a catering...</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><img src="assets/img/avatar5.jpg"></div>
-                                <div class="user-content"><span class="date">January 2</span><span class="name">Emily Carter</span><span class="text-content"> Request you to be a part of the same so that we can work...</span></div></a></li>
+                                <div class="user-content"><span class="date"><?php echo $d['date_c'] ?></span>
+                                <span class="name"><?php echo $d['email'] ?></span>
+                                <span class="text-content"><?php echo $d['message'] ?></span>
+                                </div></a></li>
+                              <?php } ?>
                           </ul>
                         </div>
                       </div>
@@ -119,32 +112,45 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
                 <ul class="dropdown-menu am-notifications">
                   <li>
-                    <div class="title">Notifications<span class="badge">3</span></div>
+                    <div class="title">Notifications<span class="badge"></span></div>
                     <div class="list">
                       <div class="am-scroller nano">
                         <div class="content nano-content">
-                          <ul>
-                            <li class="active"><a href="#">
-                                <div class="logo"><span class="icon s7-pin"></span></div>
-                                <div class="user-content"><span class="circle"></span><span class="name">Jessica Caruso</span><span class="text-content"> accepted your invitation to join the team.</span><span class="date">2 min ago</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><span class="icon s7-add-user"></span></div>
-                                <div class="user-content"><span class="name">Joel King</span><span class="text-content"> is now following you</span><span class="date">2 days ago</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><span class="icon s7-gleam"></span></div>
-                                <div class="user-content"><span class="name">Claire Sassu</span><span class="text-content"> is watching your main repository</span><span class="date">2 days ago</span></div></a></li>
-                            <li><a href="#">
-                                <div class="logo"><span class="icon s7-add-user"></span></div>
-                                <div class="user-content"><span class="name">Emily Carter</span><span class="text-content"> is now following you</span><span class="date">5 days ago</span></div></a></li>
-                          </ul>
+                            <ul>
+                               <?php
+                        
+                             foreach($cateselect as $d ){
+                                 if(($d['stock_produit']<10) &&($d['stock_produit']>0))
+                                 { ?>
+                      
+                             <li><a href="#">
+                            <div class="logo"><span class="icon s7-gleam"></span></div>
+                            <div class="user-content"><span class="circle"></span>
+                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
+                            <span class="text-content"> This product Will be out of stock !</span></div></a></li>
+                     
+                                            <?php
+                                 } 
+                                 if($d['stock_produit']==0)
+                                 {?>
+                                       <li><a href="#">
+                            <div class="logo"><span class="icon s7-gleam"></span></div>
+                            <div class="user-content"><span class="circle"></span>
+                            <span class="name"><b><?php echo $d['libelle_produit'] ?></b></span>
+                            <span class="name"> This product is out of stock !!</span></div></a></li>  
+                                <?php
+                                }
+                                 }
+                                        ?>
+                            </ul>
+                     
                         </div>
                       </div>
                     </div>
                     <div class="footer"> <a href="#">View all notifications</a></div>
                   </li>
                 </ul>
-              </li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-share"></span></a>
+              </li>              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-share"></span></a>
                 <ul class="dropdown-menu am-connections">
                   <li>
                     <div class="title">Connections</div>
@@ -206,57 +212,47 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
           </div>
         </div>
       </nav>
-      <div class="am-left-sidebar">
+       <div class="am-left-sidebar">
           <div class="content">
           <div class="am-logo"></div>
           <ul class="sidebar-elements">
             <li class="parent"><a href="#"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
              <ul class="sub-menu">
-                  <li class="active"><a href="ProduitsView.php">Products</a>
+                  <li class="active"><a href="">Products</a>
                 </li>
                  <li ><a href="ajoutProduitView.php">Add a product</a>
                 </li>
                 <li ><a href="ModifierProduitView.php">Update/Delete a product</a>
                 </li>
-                <li class="active"><a href="dashboard2.html">Categories</a>
+                <li class="active"><a href="">Categories</a>
                 </li>
                  <li ><a href="ajoutCategorieView.php">Add a Category</a>
                 </li>
-                  <li ><a href="ModifierCategorieView.php">Update/Delete a Category</a>
-                </li>
-                <li class="active"><a href="dashboard3.html">Orders</a>
+                 <li ><a href="ModifierCategorieView.php">Update/Delete a Category</a>
+                 </li>
+                <li class="active"><a href="">Orders</a>
                 </li>
             
               </ul>
             </li>
        
-            <li class="parent"><a href="#"><i class="icon s7-box2"></i><span>Tables</span></a>
-              <ul class="sub-menu">
-                <li><a href="tables-general.html">General</a>
-                </li>
-                <li><a href="tables-datatables.html">Data Tables</a>
-                </li>
-              </ul>
-            </li>
+     
                   <li class="parent"><a href="#"><i class="icon s7-mail"></i><span>Email</span></a>
               <ul class="sub-menu">
-                <li><a href="email-inbox.html">Inbox</a>
+                <li><a href="email-inbox.php">Inbox</a>
                 </li>
-                <li><a href="email-read.html">Email Detail</a>
+                <li><a href="email-read.php">Email Detail</a>
                 </li>
-                <li><a href="email-compose.html">Email Compose</a>
+                <li><a href="emaiil-compose.php">Email Compose</a>
                 </li>
               </ul>
             </li>
             <li class="parent"><a href="#"><i class="icon s7-note2"></i><span>Pages</span></a>
               <ul class="sub-menu">
-                <li><a href="pages-blank.html">Blank Page</a>
+              
+                <li><a href="page_profil.php">Profile</a>
                 </li>
-                <li><a href="pages-blank-header.html">Blank Page Header</a>
-                </li>
-                <li><a href="pages-profile.html">Profile</a>
-                </li>
-                <li><a href="pages-calendar.html">Calendar</a>
+                <li><a href="page_calendrier.php">Calendar</a>
                 </li>
     
               </ul>
@@ -323,7 +319,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                              <div class="form-group">
                       <label class="col-sm-3 control-label">Description</label>
                       <div class="col-sm-6">
-                        <textarea required="" class="form-control" name="description"></textarea>
+                        <textarea required="yes" class="form-control" name="description"></textarea>
                       </div>
                     </div>
                    
@@ -332,7 +328,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <div class="col-sm-6">
                   
                     
-                     <input type="file" accept="image/jpeg/jpg/png" id="fileImagee" name="fileImagee" >
+                     <input type="file" accept="image/jpeg/jpg/png" id="fileImagee" name="fileImagee" required="yes" >
                                   
                       </div>
                     </div>
