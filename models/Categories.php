@@ -40,7 +40,49 @@ $row = mysqli_fetch_assoc($result);
   
         return $row;
     }
+      public function ModifierCategorie($id)
+    {
+            $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+      $this->setIdP($id); 
+  
+   
+        $sql="UPDATE `categorie` SET  `lib_cat`='$this->libelle  WHERE `id_cat`=$id";
+
+  
+        if ($this->bd->query($sql))
+            return true;
+        else 
+            return false;
+
+            
+    }
+        public function getCategoriesById($id){
+       
+         $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+
+      $sql="SELECT * FROM catageorie where id_cat='$id'";
+     
+
+      $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+      $row = mysqli_fetch_assoc($result);
+  if(mysqli_num_rows($result)>0)
+        return $row;
+  else 
+      return NULL;
+    }
+     public function SupprimerCategory($id){
+          $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+        $sql="DELETE FROM `categorie` WHERE `id_cat` =$id";
       
+      if ($this->bd->query($sql))
+            return true;
+        else 
+            return false;
+
+    }  
     public function getCategories(){
       $this->bd=new Connexion();
       $this->bd=$this->bd->getConnexion();

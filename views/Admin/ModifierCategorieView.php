@@ -1,14 +1,14 @@
 <?php
-include_once'../../controllers/ProduitController.php';
- $p=new ProduitController();
-       $catselect=$p->getAllProduit();
+include_once'../../controllers/CategrieController.php';
+ $c=new CategrieController();
+       $catselect=$c->getAllCategorie();
        if(isset($_GET['action'])=='delete')
        {
            $id=$_GET['id'];
-           if($p->deleteProduit($id))
-          echo "<script>alert('Product deleted with success');window.location.href='ModifierProduitView.php';</script>";
+           if($c->deleteCategory($id))
+          echo "<script>alert('Category deleted with success');window.location.href='ModifierCategorieView.php';</script>";
            else
-                echo "<script>alert('Productnot deleted');window.location.href='ModifierProduitView.php';</script>";
+                echo "<script>alert('Category not deleted');window.location.href='ModifierCategorieView.php';</script>";
                
        }
 ?>
@@ -257,19 +257,14 @@ include_once'../../controllers/ProduitController.php';
               <div class="widget widget-fullwidth widget-small">
                 <div class="widget-head">
                 
-                  <div class="title">All Products</div>
+                  <div class="title">All Categories</div>
                 </div>
                 <table id="table1" class="table table-striped table-hover table-fw-widget">
                   <thead>
                     <tr>
                       <th hidden>Id product</th>
-                      <th style="width:2500px"><b> Name</b></th>
-                      <th style="width:250px"><b> Price</b></th>
-                      <th style="width:250px"><b> Stock</b></th>
-                      <th style="width:250px"><b> Disponibility</b></th>
-                       <th style="width:3500px"><b> Description</b></th>
-                        <th style="width:250px"><b> Category</b></th>
-                         <th style="width:250px"><b> Image</b></th>
+                      <th style="width:2500px"><b> Category name</b></th>
+                    
                          <th hidden style="width:2000px"></th>
                             <th hidden></th>
                     </tr>
@@ -282,16 +277,11 @@ include_once'../../controllers/ProduitController.php';
                              foreach($catselect as $d ){
                                             ?>
                         <tr class="gradeA odd">
-                        <td hidden> <?php echo $d['id_produit']?></td>
-                         <td> <?php echo $d['libelle_produit']?></td>
-                         <td> <?php echo $d['prix_produit']?></td>
-                          <td> <?php echo $d['stock_produit']?></td>
-                           <td> <?php echo $d['dispo']?></td>
-                            <td> <?php echo $d['description_produit']?></td>
-                             <td> <?php echo $d['id_cat']?></td>
-                             <td><input type="image"  width="50px" src="<?php echo $d['image']?>"/></td>
-                             <td><a href="ModifierProduitForm.php?id=<?=$d['id_produit']?>"><input type="submit" name="Update" value="Update" onclick="update($d['id_produit'])"/>
-                             <td><a href="ModifierProduitView.php?action=delete&id=<?=$d['id_produit']?>"><input type="submit" name="Delete" value="Delete"/>
+                        <td hidden> <?php echo $d['id_cat']?></td>
+                         <td> <?php echo $d['lib_cat']?></td>
+                      
+                             <td><a href="ModifierCategorieForm.php?id=<?=$d['id_cat']?>"><input type="submit" name="Update" value="Update" />
+                                <td><a href="ModifierCategorieView.php?action=delete&id=<?=$d['id_cat']?>"><input type="submit" name="Delete" value="Delete"/>
                                 </tr>
                                             <?php
                                         }
@@ -533,4 +523,5 @@ include_once'../../controllers/ProduitController.php';
 
 <!-- Mirrored from foxythemes.net/preview/products/amaretti/tables-datatables.php by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Dec 2016 19:16:38 GMT -->
 </html>
+
 

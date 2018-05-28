@@ -216,11 +216,13 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                 </li>
                  <li ><a href="ajoutProduitView.php">Add a product</a>
                 </li>
-                <li ><a href="ModifierProduitView.php">Update a product</a>
+                <li ><a href="ModifierProduitView.php">Update/Delete a product</a>
                 </li>
                 <li class="active"><a href="dashboard2.html">Categories</a>
                 </li>
                  <li ><a href="ajoutCategorieView.php">Add a Category</a>
+                </li>
+                  <li ><a href="ModifierCategorieView.php">Update/Delete a Category</a>
                 </li>
                 <li class="active"><a href="dashboard3.html">Orders</a>
                 </li>
