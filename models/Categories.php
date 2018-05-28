@@ -4,7 +4,7 @@ include_once'../../models/Connexion.php';
 class Categories {
     private $libelle;
     private $bd ;
- function __construct( $libelle)
+ function __construct($libelle)
     {
         $this->libelle = $libelle;
        
@@ -39,5 +39,19 @@ class Categories {
 $row = mysqli_fetch_assoc($result);
   
         return $row;
+    }
+      
+    public function getCategories(){
+      $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+
+      $sql="SELECT * FROM categorie";
+
+      $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+  if(mysqli_num_rows($result)>0)
+        return $result;
+  else 
+      return NULL;
+  
     }
 }

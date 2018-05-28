@@ -6,10 +6,10 @@ class ImageController {
     {
 
     }
-    public function ajouterImage($filename,$tmpname){
+    public function ajouterImage($idp,$src){
         $i=new Images();
        
-       if( $i->ajouterProduit($filename,$tmpname))
+       if( $i->ajoutImages($idp,$src))
            return TRUE;
        else
            return FALSE;

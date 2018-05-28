@@ -3,10 +3,9 @@ include_once'../../controllers/ProduitController.php';
  include_once'../../controllers/CategrieController.php';
       $cate=new CategrieController();
        $catselect=$cate->getAllCategorie();
-     
-    
-         
-
+        $p=new ProduitController();
+        $i=$_GET['id'];
+          $pr=$p->getProduitById($i);
 if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"]) && isset($_POST["stock"]) && isset($_POST["description"]) && isset($_FILES['fileImagee']) )
 {
     $cat =$_POST["category"];
@@ -14,17 +13,18 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
     $price =$_POST["postfix"];
    $stock =$_POST["stock"];
    $des =$_POST["description"];
-   
+ 
+     
     $target_dir = "assets/img/";
     $target_file = $target_dir.basename($_FILES["fileImagee"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         if (move_uploaded_file($_FILES["fileImagee"]["tmp_name"], $target_file)) {
-    $prod=new ProduitController();
-   if  ($prod->ajouterProduit($name,$price,$stock,$des,$cat,$target_file))
+            
+   if  ($p->updateProduit($i,$name,$price,$stock,$des,$cat,$target_file))
    
-        echo "<script>alert('Product added with success');window.location.href='AjoutProduitView.php';</script>"; 
+        echo "<script>alert('Product updated with success');window.location.href='ModifierProduitView.php';</script>"; 
    else
-        echo  "<script>alert('Error!Product not added !!');window.location.href='AjoutProduitView.php';</script>";
+        echo  "<script>alert('Error!Product not updated!!');window.location.href='ModifierProduitView.php';</script>";
        
         
 }
@@ -278,7 +278,7 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                   <h3>Add a product</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="AjoutProduitView.php" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
+                    <form action="ModifierProduitForm.php?id=<?=$pr['id_produit']?>" class="form-horizontal group-border-dashed" method="POST" enctype="multipart/form-data">
                        <div class="form-group">
                       <label class="col-sm-3 control-label">Categories</label>
                       <div class="col-sm-6">
@@ -287,7 +287,11 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                        
                              foreach($catselect as $d ){
                                             ?>
-                                            <option value="<?php echo $d['id_cat']?>"><?php echo $d['lib_cat'] ?></option>
+                                            <option value="<?php echo $d['id_cat'];
+                                                   if($d['id_cat']===$pr['id_cat'])
+                                                   {?> "selected> <?php
+                                                   }
+                                                       ?><?php echo $d['lib_cat'] ?></option>
                                             <?php
                                         }
                                         ?>
@@ -295,18 +299,18 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                         </select>
                       </div>
                     </div>
-                <div class="form-group">
-                   
+                
+                     <div class="form-group">
                       <label class="col-sm-3 control-label">Price</label>
                       <div class="col-sm-6">
-                        <input id="postfix" type="text" value="00" name="postfix" class="form-control">
+                        <input id="postfix" type="text" value="<?php echo $pr['prix_produit']?>" name="postfix" class="form-control">
                       </div>
                     </div>
-
+                        <br>
                     <div class="form-group">
                       <label class="col-sm-3 control-label">Name</label>
                       <div class="col-sm-6">
-                        <input type="text" required="yes" placeholder="name" class="form-control" name="name">
+                        <input type="text" required="yes" placeholder="name" value="<?php echo $pr['libelle_produit']?>" class="form-control" name="name">
                       </div>
                     </div>
                   
@@ -314,14 +318,14 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                     <div class="form-group">
                       <label class="col-sm-3 control-label">Stock</label>
                       <div class="col-sm-6">
-                        <input type="number" required="yes" placeholder="stock" class="form-control" name="stock" onblur="verifStock(this)">
+                        <input type="number" required="yes" placeholder="stock" value="<?php echo $pr['stock_produit']?>" class="form-control" name="stock" onblur="verifStock(this)">
                       </div>
                     </div>
                  
                              <div class="form-group">
                       <label class="col-sm-3 control-label">Description</label>
                       <div class="col-sm-6">
-                        <textarea required="" class="form-control" name="description"></textarea>
+                        <textarea required="" class="form-control"  name="description"><?php echo $pr['description_produit']?></textarea>
                       </div>
                     </div>
                    
@@ -329,13 +333,13 @@ if (isset($_POST["category"]) && isset($_POST["name"]) && isset($_POST["postfix"
                       <label class="col-sm-3 control-label">Images</label>
                       <div class="col-sm-6">
                   
-                    
+                          <b> Image actuelle</b><br> <input type="image" width="85px"src="<?php echo $pr['image']?>"</input><br><br>
                      <input type="file" accept="image/jpeg/jpg/png" id="fileImagee" name="fileImagee" >
                                   
                       </div>
                     </div>
                     <div class="form-group">
-                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="add">
+                           <center><input type="submit" class="btn btn-space btn-primary" name="sumit" value="Update">
                         <button class="btn btn-space btn-default" name="cancel">Cancel</button>
                    </center>
                     </div>

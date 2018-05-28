@@ -17,4 +17,9 @@ class CategrieController {
        
 
     }
+     public function getAllCategorie(){
+           $cm=new Categories('');
+           return $cm->getCategories();
+      
+    }
 }

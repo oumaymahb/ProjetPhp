@@ -12,21 +12,13 @@ class Produits {
     private $bd;
     private $image;
     function __construct($lib,$prix,$stock,$desc,$cat,$image){ 
-         $this->bd=new Connexion();
-        $this->bd=$this->bd->getConnexion();
-        $c=new Categories($cat);
       
-        $res=$c->getCategoryByLib();
-       
-       $id= $res['id_cat'];
- 
-     
           $this->libelleP=$lib;
           $this->prixP=$prix;
           $this->stockP=$stock;
           $this->dispo=1;
           $this->descriptionP=$desc;
-          $this->idCat=$id;
+          $this->idCat=$cat;
           $this->image=$image;
       
           
@@ -90,7 +82,12 @@ class Produits {
 
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
+        if ($this->stockP>10)
+            $this->dispo=1;
+        else
+            $this->dispo=0;
        $sql = "INSERT INTO produit (libelle_produit,prix_produit,stock_produit,dispo,description_produit,id_cat,image) VALUES ('$this->libelleP','$this->prixP','$this->stockP','$this->dispo','$this->descriptionP','$this->idCat','$this->image')";
+      
        if ($this->bd->query($sql)) 
 
         return true;
@@ -98,16 +95,34 @@ class Produits {
            return false;
     }
     public function getAllProduits(){
-        $sql="SELECT * FROM `produit`";
-        $res=$this->bd->query($sql);
-        return $res;
+          $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+
+      $sql="SELECT * FROM produit";
+
+      $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+  if(mysqli_num_rows($result)>0)
+        return $result;
+  else 
+      return NULL;
+  
+    
     }
-    public function getProduitByLib($lib){
+      
+    public function getProduitsById($id){
        
-        $stmt = $this->bd->prepare("SELECT * FROM produit WHERE  libelle_produit = :lib");
-        $stmt->bindValue('lib' ,$lib);
-        $res=$stmt->execute();
-        return $res;
+         $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+
+      $sql="SELECT * FROM produit where id_produit='$id'";
+     
+
+      $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+      $row = mysqli_fetch_assoc($result);
+  if(mysqli_num_rows($result)>0)
+        return $row;
+  else 
+      return NULL;
     }
     public function getProduitByStock(){
         $sql="SELECT * FROM produit WHERE  stock_produit < 10";
@@ -120,16 +135,22 @@ class Produits {
         $res=$stmt->execute();
         return $res;
     }
-    public function ModifierProduit()
+    public function ModifierProduit($id)
     {
-        $sql="UPDATE `produit` SET `libelle_produit`=:lib,`prix_produit`=:prix,`stock_produit`=:stock,`description_produit`=:descr  WHERE `id_produit`= :id";
-        $q = $this->bd->prepare($sql);
-        $q->bindValue(':id',$this->idP);
-        $q->bindValue(':lib', $this->libelleP);
-        $q->bindValue(':prix', $this->prixP);
-        $q->bindValue(':stock', $this->stockP);
-        $q->bindValue(':descr', $this->descriptionP);
-        $q->execute();        
+            $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+      $this->setIdP($id); 
+  
+   
+        $sql="UPDATE `produit` SET  `libelle_produit`='$this->libelleP',`prix_produit`=$this->prixP,`stock_produit`=$this->stockP,`description_produit`=' $this->descriptionP',image='$this->image'  WHERE `id_produit`=$this->idP";
+
+  
+        if ($this->bd->query($sql))
+            return true;
+        else 
+            return false;
+
+            
     }
     public function SupprimerProduit(){
         $sql="DELETE FROM `produit` WHERE `id_produit` = :id";

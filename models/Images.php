@@ -8,21 +8,19 @@ class Images {
     {
        
     }
-    function ajoutImages($filename,$tmpname)
+    function ajoutImages($idp,$src)
     {
         $this->bd=new Connexion();
         $this->bd=$this->bd->getConnexion();
-        for($i=0;$i<=count($tmpname)-1;$i++)
-        {
-            $src=addslashes($filename[$i]);
-            $tmp=addslashes(file_get_contents($tmpname[$i]));
-             $sql = "INSERT INTO imagesp (id_produit,src,image) VALUES (1,'aa','aa')";
+        
+           
+             $sql = "INSERT INTO imagesp (id_produit,src) VALUES (1,'aaa')";
        if ($this->bd->query($sql)) 
 
         return true;
        else
            return false;
             
-        }
+        
     }
 }
