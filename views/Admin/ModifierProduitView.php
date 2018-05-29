@@ -5,7 +5,20 @@ include_once'../../controllers/ProduitController.php';
   $contact=$conta->getAllContact();
  $p=new ProduitController();
        $catselect=$p->getAllProduit();
-       if(isset($_GET['action'])=='delete')
+         if(isset($_POST['Delete2'])&& !empty($_POST['ch']))
+       {
+           $chk= implode(",",$ch);
+         echo "<script>alert('".$chk."');</script>";
+        
+            if($p->deleteProduits($chk))
+          echo "<script>alert('Products deleted with success');window.location.href='ModifierProduitView.php';</script>";
+           else
+                echo "<script>alert('Products not deleted');window.location.href='ModifierProduitView.php';</script>";
+               
+           
+       }
+       else
+           if(isset($_POST['Delete2']))
        {
            $id=$_GET['id'];
            if($p->deleteProduit($id))
@@ -14,6 +27,7 @@ include_once'../../controllers/ProduitController.php';
                 echo "<script>alert('Productnot deleted');window.location.href='ModifierProduitView.php';</script>";
                
        }
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,12 +46,7 @@ include_once'../../controllers/ProduitController.php';
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="assets/lib/theme-switcher/theme-switcher.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lib/datatables/css/dataTables.bootstrap.min.css"/><link type="text/css" href="assets/css/style.css" rel="stylesheet">  </head>
-<script>
-    function update( var)
-    {
-        alert(var);
-    }
-</script>
+
 <body>
     <div class="am-wrapper">
       <nav class="navbar navbar-default navbar-fixed-top am-top-header">
@@ -253,6 +262,7 @@ include_once'../../controllers/ProduitController.php';
                 
                   <div class="title">All Products</div>
                 </div>
+                  <form action="ModifierProduitView.php" method="POST">
                 <table id="table1" class="table table-striped table-hover table-fw-widget">
                   <thead>
                     <tr>
@@ -264,6 +274,7 @@ include_once'../../controllers/ProduitController.php';
                        <th style="width:3500px"><b> Description</b></th>
                         <th style="width:250px"><b> Category</b></th>
                          <th style="width:250px"><b> Image</b></th>
+                         <th hidden></th>
                          <th hidden style="width:2000px"></th>
                             <th hidden></th>
                     </tr>
@@ -284,17 +295,30 @@ include_once'../../controllers/ProduitController.php';
                             <td> <?php echo $d['description_produit']?></td>
                              <td> <?php echo $d['id_cat']?></td>
                              <td><input type="image"  width="50px" src="<?php echo $d['image']?>"/></td>
+                             <td><input type="checkbox" name="ch[]" value="<?php echo $d['id_produit']?>"/></td>
                              <td><a href="ModifierProduitForm.php?id=<?=$d['id_produit']?>"><input type="submit" name="Update" value="Update" onclick="update($d['id_produit'])"/>
                              <td><a href="ModifierProduitView.php?action=delete&id=<?=$d['id_produit']?>"><input type="submit" name="Delete" value="Delete"/>
                                 </tr>
+                                
                                             <?php
                                         }
                                         ?>
+                                 <tr class="gradeA odd">
+                        <td hidden> </td>
+                         <td> </td>
+                         <td> </td>
+                          <td></td>
+                           <td> </td>
+                            <td> </td>
+                             <td></td>
+                             <td></td>
+                               <td><a href="ModifierProduitView.php?action2=deleteAll&id=<?=$d['id_produit']?>"/><input type="submit" name="Delete2" value="Delete"/>
                      
-                  
+                                   </tr>
                  
                   </tbody>
                 </table>
+                  </form>
               </div>
             </div>
           </div>

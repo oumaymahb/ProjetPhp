@@ -153,9 +153,21 @@ class Produits {
             
     }
     public function SupprimerProduit($id){
-        
+        $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
         $sql="DELETE FROM `produit` WHERE `id_produit` =$id";
-        echo $sql;
+
+      if ($this->bd->query($sql))
+            return true;
+        else 
+            return false;
+
+    }
+       public function SupprimerProduits($ch){
+        $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+        $sql="DELETE FROM `produit` WHERE `id_produit` in ($ch)";
+    
       if ($this->bd->query($sql))
             return true;
         else 

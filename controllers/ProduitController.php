@@ -22,10 +22,20 @@ class ProduitController {
        else
            return false;
     }
-         public function deleteProduit($id){
+         public function deleteProduit($id)
+    {
         $p=new Produits('',0,0,'',40,'');
    
        if( $p->SupprimerProduit($id))
+           return true;
+       else
+           return false;
+    }
+        public function deleteProduits($ch)
+    {
+        $p=new Produits('',0,0,'',40,'');
+   
+       if( $p->SupprimerProduits($ch))
            return true;
        else
            return false;
