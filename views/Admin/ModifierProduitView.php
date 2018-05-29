@@ -18,7 +18,7 @@ include_once'../../controllers/ProduitController.php';
            
        }
        else
-           if(isset($_POST['Delete2']))
+           if(isset($_GET['action'])=='delete')
        {
            $id=$_GET['id'];
            if($p->deleteProduit($id))
@@ -262,7 +262,7 @@ include_once'../../controllers/ProduitController.php';
                 
                   <div class="title">All Products</div>
                 </div>
-                  <form action="ModifierProduitView.php" method="POST">
+             
                 <table id="table1" class="table table-striped table-hover table-fw-widget">
                   <thead>
                     <tr>
@@ -318,7 +318,7 @@ include_once'../../controllers/ProduitController.php';
                  
                   </tbody>
                 </table>
-                  </form>
+                  
               </div>
             </div>
           </div>
