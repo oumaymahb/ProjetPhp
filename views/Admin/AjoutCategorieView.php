@@ -51,7 +51,7 @@ if (isset($_POST["catName"]))
                   <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
                   <li><a href="#"> <span class="icon s7-config"></span>Settings</a></li>
                   <li><a href="#"> <span class="icon s7-help1"></span>Help</a></li>
-                  <li><a href="#"> <span class="icon s7-power"></span>Sign Out</a></li>
+                  <li><a href="/PhpProject/views/Public/index.php"> <span class="icon s7-power"></span>Sign Out</a></li>
                 </ul>
               </li>
             </ul>

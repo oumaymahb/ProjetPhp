@@ -1,16 +1,8 @@
-<?php
-include_once'../../controllers/ProduitController.php';
-$produit=new ProduitController();
-$res=$produit-> getAllProduit();
-if(isset($_GET['clicked']))
- 	$res=$produit->getProduitByCAt($_GET['clicked']);
-else
-	$res=$produit->getAllProduit();
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>SoftWare</title>
+<title>AboutUs</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -20,8 +12,8 @@ else
 <link rel="stylesheet" type="text/css" href="../../core/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="../../core/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="../../core/plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="../../core/styles/blog_styles.css">
-<link rel="stylesheet" type="text/css" href="../../core/styles/blog_responsive.css">
+<link rel="stylesheet" type="text/css" href="../../core/styles/blog_single_styles.css">
+<link rel="stylesheet" type="text/css" href="../../core/styles/blog_single_responsive.css">
 
 </head>
 
@@ -56,7 +48,7 @@ else
 		</div>
 		<!-- Header Main -->
 
-			<div class="header_main">
+		<div class="header_main">
 			<div class="container">
 				<div class="row">
 
@@ -125,7 +117,8 @@ else
 			</div>
 		</div>
 		
-<!-- Main Navigation -->
+
+		<!-- Main Navigation -->
 
 		<nav class="main_nav">
 			<div class="container">
@@ -170,7 +163,8 @@ else
 										
 									</li>
 									<li class="hassubs">
-									<a href="RateMeView.php">Rate Me<i class="fas "></i></a>
+										<a href="RateMeView.php">Rate Me<i class="fas "></i></a>
+										
 									</li>
 									<li class="hassubs">
 										<a href="AboutUs.php">About Us</a>
@@ -181,7 +175,6 @@ else
 								</ul>
 							</div>
 
-							
 							<!-- Menu Trigger -->
 
 							
@@ -224,54 +217,41 @@ else
 
 	</header>
 
-	
 
-	<!-- Blog -->
+	<!-- Home -->
 
-	<div class="blog">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="blog_posts d-flex flex-row align-items-start justify-content-between">
-						
-				   	<?php
-                       		if($res==NULL)
-                       		{	
-                       			?>
-                       			
-                       			 	<div class="home">
-		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
-		<div class="home_overlay"></div>
-		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h3 class="home_title">
-                       			 	This category has no products yet.</h3>
-		</div>
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../core/images/blog_single_background.jpg" data-speed="0.8"></div>
 	</div>
 
-                       			<?php
-                       		}
-                       		else{
-                             foreach($res as $d ){
-                                            ?>
-						<div class="blog_post">
-							<div class="blog_image" style="background-image:url(<?php echo $d['image']?>)"></div>
-							<div class="blog_text"><?php echo $d['libelle_produit']?>
-								<br>
-								<?php echo $d['description_produit']?></div>
-							
-							<div class="blog_button"><a href="ProduitsView.php?id=<?php echo $d['id_produit']?>">Continue Reading</a></div>
-						</div>
+	<!-- Single Blog Post -->
 
-						 <?php
-                                        
-                                    }
-                                       } ?>
+	<div class="single_post">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="single_post_title">About Software.Com</div>
+					<div class="single_post_text">
+						<p>"Thank you very much for your professionalism! I will definitely remember you in the future when I need software as well as recommend your company to others. Thanks again!" - <b><i>Oumaima&&Amani</i></b></p>
+						<p>Our Story<br><br>
+SoftwareMedia started way back in 1997 as a small business distributing software and other tech products in Seattle, WA. Now in Salt Lake City, Utah, we continue to provide discount software, software licensing and software-related services online and offline, coupled with superior customer care - and the skiing isn't bad, either :)
 
+Our customers are our #1 priority, and because of that we’ve put together a team of Customer Service Rockstars who know exactly how to help our customers with whatever they may need. All our Customer Service Team Members have extensive experience and are certified by the major brands like Microsoft, Symantec, and VMware.
+
+We understand the uncertainties of online shopping. We also know how we'd like to be treated, and that's what our business is based on - doing for our customers exactly what we'd like other businesses to do for us.
+
+With consistent five star ratings across the board, we at SoftwareMedia believe in providing our customers with what they deserve: certainty and comfort with their order, exceptional prices, genuine products, speedy delivery, and a 30 day guarantee return policy. And if you have concerns, there are actual people here to help.</p>
+
+						
+					</div>
 				</div>
-					
 			</div>
 		</div>
 	</div>
+
+	<!-- Blog Posts -->
+
+	
 
 	<!-- Newsletter -->
 
@@ -298,7 +278,7 @@ else
 		</div>
 	</div>
 
-		<!-- Footer -->
+	<!-- Footer -->
 
 	<footer class="footer">
 		<div class="container">

@@ -71,4 +71,11 @@ class Contact {
   else 
       return NULL;
     }
+    public function AddContact(){
+    		 $this->bd=new Connexion();
+	        $this->bd=$this->bd->getConnexion();
+	        $sql="INSERT INTO `contact`(`sujet`, `email`, `message`) VALUES ('$this->sujet','$this->email','$this->msg');";
+			$res=mysqli_query($this->bd,$sql) or die(mysql_error());
+   			   return($res);
+    }
 }

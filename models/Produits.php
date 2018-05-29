@@ -129,12 +129,18 @@ class Produits {
          $res=$this->bd->query($sql);
         return $res;
     }
-    public function getProduittByCategory($cat){
-        $stmt = $this->bd->prepare("SELECT * FROM `produit` WHERE id_produit =(SELECT id_produit from categorie where lib_cat = :cat");
-        $stmt->bindValue('cat' ,$cat);
-        $res=$stmt->execute();
-        return $res;
+   public function getProduittByCategory($cat){
+        $this->bd=new Connexion();
+      $this->bd=$this->bd->getConnexion();
+        $sql=("SELECT * FROM `produit` WHERE id_cat =(SELECT id_cat from categorie where lib_cat ='$cat')");
+        $result = mysqli_query($this->bd,$sql) or die(mysql_error());
+          if(mysqli_num_rows($result)>0)
+                return $result;
+          else 
+              return NULL;
+
     }
+
     public function ModifierProduit($id)
     {
             $this->bd=new Connexion();

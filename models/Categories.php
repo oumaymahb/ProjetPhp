@@ -91,4 +91,14 @@ $row = mysqli_fetch_assoc($result);
       return NULL;
   
     }
+    public function getCategoryById($id){
+      $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+
+      $sql="SELECT  lib_cat  FROM categorie WHERE id_cat='$id'";
+
+     $result = mysqli_query( $this->bd,$sql) or die(mysql_error());
+    $row = mysqli_fetch_assoc($result);
+        return $row;
+    } 
 }

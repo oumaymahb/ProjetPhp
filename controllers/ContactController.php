@@ -32,6 +32,10 @@ ini_set("smtp_port","587");
     
     
     }
+    public function sendEmailToAdmin($email,$obj,$msg){
+    	 $p=new Contact(0,$obj,$email,$msg);
+    	 return $p->AddContact();	
+    }
     }
 
 ?>

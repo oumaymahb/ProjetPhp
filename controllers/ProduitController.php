@@ -52,5 +52,16 @@ class ProduitController {
              return $pr;
       
     }
+    public function getProduitByCAt($cat){
+           $p=new Produits('',0,0,'',40,'');
+                
+           $pr=$p-> getProduittByCategory($cat);
+             return $pr;
+    }
+    public function getCat($id){
+
+      $cat=new Categories('');
+      return($cat->getCategoryById($id));
+    }
    
 }

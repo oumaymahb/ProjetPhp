@@ -11,6 +11,8 @@
  *
  * @author oumayma
  */
+
+include_once'../../models/Connexion.php';
 class User {
    private $id_user ;
   private $nom_user;
@@ -19,19 +21,21 @@ class User {
   private $mdp ;
   private $adresse ;
   private $num_tel ;
-  private $date_nais ;
   private $role;
   private $bd;
-  function __construct($nom,$prenom,$email,$mdp,$adr,$num,$dat,$role,$bd){
-  	$this->nom_user=$nom;
-  	$this->prenom_user=$prenom;
-  	$this->email=$email;
-  	$this->mdp=$mdp;
-  	$this->adresse=$adr;
-  	$this->num_tel=$num;
-  	$this->$date_nais=$dat;
-  	$this->role=$role;
-  	$this->bd=$bd;
+  function __construct($nom,$pre,$adr,$phone,$user,$pwd){
+        $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();
+        $this->email=$user;
+        $this->mdp=$pwd;
+        $this->role="visiteur";
+        if(!empty($nom) && !empty($pre) && !empty($adr) && !empty($phone)){
+
+          $this->nom_user=$nom;
+          $this->prenom_user=$pre;
+          $this->adresse=$adr;
+          $this->num_tel=$phone;
+        }
   }
   public function getId(){
   	return $this->id_user;
@@ -54,9 +58,6 @@ class User {
   public function getNumTel(){
   	return $this->num_tel;
   }
-  public function getdateNais(){
-  	return $this->date_nais;
-  }
   public function getRole(){
   	return $this->role;
   }
@@ -73,7 +74,7 @@ class User {
   	$this->email=$email;
   }
   public function setMdp($mdp){
-  	$this->mdp=$mdp;
+  	$this->mdp=$mdp; 
   }
   public function setAdresse($adr){
   	$this->adresse=$adr;
@@ -81,38 +82,30 @@ class User {
   public function setNumTel($num){
   	$this->num_tel=$num;
   }
-  public function setdateNais($dat){
-     $this->date_nais=$dat;
-  }
   public function setRole($role){
    $this->role=$role;
   }
   public function AjouterUser()
   {
-    $sql = "INSERT INTO `user` (`nom_user`, `prenom_user`,`email`,`mdp`,`adresse`,`num_tel`,`date_nais`,`role`) VALUES (:nom,:pre,:email,:mdp,:adr,:num,:dat,:role)";
-        $q = $this->bd->prepare($sql);
-        $q->bindValue(':nom',$this->nom_user);
-        $q->bindValue(':pre', $this->prenom_user);
-        $q->bindValue(':email',$this->email);
-        $q->bindValue(':mdp', $this->mdp);
-        $q->bindValue(':adr',$this->adresse);
-        $q->bindValue(':num', $this->num_tel);
-        $q->bindValue(':dat',$this->date_nais);
-        $q->bindValue(':role', $this->role);
-        $q->execute();
-        echo "well done";
+       $sql = "INSERT INTO `user` (`nom_user`, `prenom_user`,`email`,`mdp`,`adresse`,`num_tel`,`role`) VALUES ('$this->nom_user','$this->prenom_user','$this->email',' $this->mdp','$this->adresse',$this->num_tel,'$this->role')";
+      $res=mysqli_query($this->bd,$sql) or die(mysql_error());
+      return($res);
+
+       
   }
-     public function Verifuser($email,$mdp){
-  	    $stmt = $this->bd->prepare("SELECT `mdp` FROM `user` WHERE `email`= :email ");
-        $stmt->bindValue('email' ,$email);
-        $res=$stmt->execute();
-       if(res)
+     public function Verifuser(){
+      $sql="SELECT * FROM `user` WHERE `email`='$this->email'";
+       $res = mysqli_query($this->bd,$sql) or die(mysql_error());
+        $donnees = mysqli_fetch_assoc($res);
+       if(mysqli_num_rows($res)>0)
        {
-       	$donnees = $res->fetch();
-       	if($donnees['mdp']==$mdp)
-       		return 1;
+       	if($donnees['mdp']===$this->mdp)
+       	    if($donnees['role']=='admin')
+              return 1;
+            else
+              return 2;
        	else
-       		return 2;
+       		return 3;
        }
        else
        {
@@ -122,6 +115,8 @@ class User {
   }
   public function SupprimerUser($id)
   {
+        $this->bd=new Connexion();
+        $this->bd=$this->bd->getConnexion();  
         $sql="DELETE FROM `user` WHERE `id_user` = :id";
         $q = $this->bd->prepare($sql);
         $q->bindValue(':id',$this->id_user);
