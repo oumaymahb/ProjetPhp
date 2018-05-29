@@ -73,6 +73,7 @@ if (isset($_POST["catName"]))
                                 <div class="logo"><img src="assets/img/avatar2.jpg"></div>
                                
                                 <span class="name"><?php echo $d['email'] ?></span>
+                                 <div class="user-content"><span class="date"> </span>
                                 <span class="text-content"><?php echo $d['message'] ?></span>
                                 </div></a></li>
                               <?php } ?>

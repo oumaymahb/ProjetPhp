@@ -85,7 +85,7 @@
                               
                             <li class="active"><a href="ContactViewer.php?id=<?=$d['id_contact']?>">
                                 <div class="logo"><img src="assets/img/avatar2.jpg"></div>
-                             
+                              <div class="user-content"><span class="date"> </span>
                                 <span class="name"><?php echo $d['email'] ?></span>
                                 <span class="text-content"><?php echo $d['message'] ?></span>
                                 </div></a></li>
